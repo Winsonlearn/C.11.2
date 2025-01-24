@@ -18,5 +18,6 @@ def bio():
                             cita_cita = request.form["cita_cita"],
                             agama = request.form["agama"],
                             tentang = request.form["tentang"])
+    
 if __name__ == "__main__":
     app.run(debug=True)
