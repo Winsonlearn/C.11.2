@@ -22,7 +22,13 @@ section, main{
     font-size: 1.7rem;
     border-radius: 1%;
 }
-section form input[type=text], input[type=number], input[type=email], input[type=date], textarea, fieldset, select {
+section form input[type=text], 
+input[type=number], 
+input[type=email], 
+input[type=date], 
+textarea, 
+fieldset, 
+select{
     width: 100%;
     padding: 10px;
     margin: 10px 0;
