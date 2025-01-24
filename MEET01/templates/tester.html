@@ -1,0 +1,14 @@
+{% extends 'layout.html' %}
+{% block title %}
+    <title>Tester Page</title>
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+{% endblock %}
+
+{% block content %}
+<p>{{kata}}</p>
+<p>{{angka}}</p>
+<p>{{terserah}}</p>
+{% endblock %}
