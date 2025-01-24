@@ -1,0 +1,18 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+table{
+    border-collapse: collapse;
+    border: 1px solid black;
+    text-align: center;
+}
+
+table tr, table th, table td{
+    padding: 5px;
+}
+
+hr{
+    margin: 10px 0;
+}

@@ -1,0 +1,26 @@
+{% extends 'layout.html' %}
+{% block title %}
+    <title>IGS</title>
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styleIGS.css') }}">
+{% endblock %}
+
+{% block content %}
+    <h1>IGS Page</h1>
+    <hr>
+    <div>
+    {% for dt in data2 %}
+        {% if dt == "I" %}
+            <p style="background-color: red;">{{ dt }}</p>
+        {% elif dt == "G" %}
+            <p style="background-color: blue;">{{ dt }}</p>
+        {% elif dt == "S" %}
+            <p style="background-color: green;">{{ dt }}</p>
+        {% endif %}
+    {% endfor %}
+    </div>
+
+    
+{% endblock %}

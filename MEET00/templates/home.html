@@ -1,0 +1,38 @@
+{% extends 'layout.html' %}
+{% block title %}
+    <title>Homepage</title>
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+{% endblock %}
+
+{% block content %}
+    <p>Home Page | {{ title }}</p>
+    <hr>
+
+    <table border="1">
+        <tr>
+            <th>First</th>
+            <th>Second</th>
+            <th>Third</th>
+        </tr>
+
+        {% for dt in data %}
+        <tr>
+            <td>{{ dt['First'] }}</td>
+            <td>{{ dt['Second'] }}</td>
+            <td>{{ dt.Third }}</td>
+        </tr>
+        {% endfor %}
+
+    </table>
+    <hr>
+    {% if usia >= 20 %}
+        <p>Anda Bukan Anak SMA</p>
+    {% else %}
+        <p>Anda Anak SMA</p>
+    {% endif %}
+
+    <h1>Winson 11 IPA 1 KOMPUTER</h1>
+{% endblock %}

@@ -1,0 +1,45 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    color: black;
+    background: radial-gradient(#0a0a23, salmon);
+}
+
+header{
+    text-align: center;
+    color: white;
+}
+
+section, main{
+    background: linear-gradient(blue 0%,green 50% , red 100%);
+    width: 60%;
+    margin: 10px auto;
+    padding: 2rem;
+    font-size: 1.7rem;
+    border-radius: 1%;
+}
+section form input[type=text], input[type=number], input[type=email], input[type=date], textarea, fieldset, select {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+}
+button{
+    padding: 20px;
+}
+
+img{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    box-shadow: 2px 2px 15px 2px blue;
+    object-fit: cover;
+
+}
+
+img:hover{
+    transform: scale(1.05);
+}

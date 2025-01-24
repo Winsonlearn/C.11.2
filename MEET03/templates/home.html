@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+{% endblock %}
+
+{% block content %}
+    <header>
+        <h1><u>FORM DATA</u></h1>
+    </header>
+
+    <section>
+        <form action="{{ url_for('bio') }}" method="post">
+            <label for="nama">NAMA : </label>
+            <input type="text" name="nama" id="nama" placeholder="Masukkan nama.." required>
+
+            <label for="kelas">KELAS : </label>
+            <input type="number" min="10" max="12" name="kelas" placeholder="Masukkan kelas.." required>
+
+            <label for="email">EMAIL : </label>
+            <input type="email" name="email" id="email" placeholder="Masukan email.." required>
+            
+            <fieldset>
+                <legend>TEMPAT, TANGGAL LAHIR</legend>
+                <label for="tempat">Tempat : </label>
+                <input type="text" name="tempat" id="tempat" required>
+                <label for="tanggal">Tanggal lahir : </label>
+                <input type="date" name="tanggal" id="tanggal" required>
+            </fieldset>
+
+            <fieldset>
+                <legend>CITA-CITA</legend>
+                <label for="Programmer">Programmer</label>
+                <input type="radio" name="cita_cita" id="Programmer" value="Programmer">
+                <label for="Pengusaha">Pengusaha</label>
+                <input type="radio" name="cita_cita" id="Pengusaha" value="Pengusaha">
+                <label for="Guru">Guru</label>
+                <input type="radio" name="cita_cita" id="Guru" value="Guru">
+            </fieldset>
+
+            <label for="agama">AGAMA :</label>
+            <select name="agama" id="agama" required>
+                <option value="Buddha">Buddha</option>
+                <option value="Konghucu">Konghucu</option>
+                <option value="Kristen">Kristen</option>
+                <option value="Katolik">Katolik</option>
+                <option value="Hindu">Hindu</option>
+                <option value="Islam">Islam</option>
+            </select>
+
+            <label for="tentang">TENTANG :</label>
+            <textarea name="tentang" id="tentang" placeholder="Tentang.. " required></textarea>
+            <button type="submit">KIRIM</button>
+        </form>
+    </section>
+{% endblock %}

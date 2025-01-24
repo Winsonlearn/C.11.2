@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+{% endblock %}
+
+{% block content %}
+    <header>
+        <h1><u>DATA</u></h1>
+        <img src="{{ url_for("static", filename="img/pokemon_profile.jpg")}}" alt ="pokemon"></img>
+    </header>
+
+    <main>
+        <p>
+            <b>Nama</b><br>
+            {{ nama }}
+        </p>
+        <p>
+            <b>Kelas</b><br>
+            {{ kelas }}
+        </p>
+        <p>
+            <b>Email</b><br>
+            {{ email }}
+        </p>
+        <p>
+            <b>Tempat, Tanggal Lahir</b><br>
+            {{ tempat }}, {{ tanggal }}
+        </p>
+        <p>
+            <b>Cita-Cita</b><br>
+            {{ cita_cita }}
+        </p>
+        <p>
+            <b>Agama</b><br>
+            {{ agama }}
+        </p>
+        <p>
+            <b>Tentang</b><br>
+            {{ tentang }}
+        </p>
+    </main>
+{% endblock %}
