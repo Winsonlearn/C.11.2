@@ -1,6 +1,16 @@
 from flask import *
+import secrets
 
 app = Flask(__name__)
+app.secret_key = secrets.token_hex(16)
+
+users = [
+    {
+        "username" : "user",
+        "password" : "1234",
+        "role" : "admin"
+    }
+]
 
 @app.route('/')
 @app.route('/home')
