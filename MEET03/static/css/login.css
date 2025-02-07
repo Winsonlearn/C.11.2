@@ -15,8 +15,7 @@ div{
     background: white;
     padding: 25px;
     border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    width: 320px;
+    width: 400px;
     text-align: center;
 }
 
@@ -35,28 +34,27 @@ form{
 label{
     font-weight: bold;
     text-align: left;
-    color: #555;
+    color: black;
 }
 
 input{
     padding: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid white;
     border-radius: 5px;
     font-size: 14px;
     width: calc(100% - 20px);
 }
 
 button{
-    background-color: #1b6bc2;
+    background-color: black;
     color: white;
     padding: 10px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
-    transition: background 0.3s ease;
 }
 
 button:hover{
-    background-color: #2774c7;
+    background-color: darkblue;
 }

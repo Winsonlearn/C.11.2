@@ -7,7 +7,7 @@
 {% block content %}
 
 <header>
-    <h1>ADMIN</h1>
+    <h1>{{ session.get('role') }}</h1>
 </header>
 
 <main>
