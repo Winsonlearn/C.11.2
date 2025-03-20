@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+{% endblock %}
+
+{% block content %}
+    <h1>INPUT DATA</h1>
+    <form action="" method="post">
+        <input type="text" name="nama" placeholder="Enter nama..."/>
+    </form>
+    
+    <p>sql</p>    
+{% endblock %}
