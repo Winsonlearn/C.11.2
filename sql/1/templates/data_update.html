@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+{% endblock %}
+
+{% block content %}
+    <h1>Update Kota</h1>
+    <form action="{{ url_for('update', id=value[0]) }}" method="POST">
+        <label for="nama">Nama Kota Update:</label>
+        <input type="text" id="nama" name="nama" value="{{ value[1] }}" required>
+        <button type="submit">Update</button>
+    </form>
+    <a href="{{ url_for('data_view') }}">kembali</a>
+{% endblock %}
