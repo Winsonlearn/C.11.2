@@ -1,0 +1,34 @@
+{% extends 'base.html' %} {% block content %}
+<div
+  class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
+>
+  <h1 class="h2">TAMBAH KATEGORI PENJUAL</h1>
+</div>
+
+<form action="{{ url_for('kategori_penjual.store') }}" method="post">
+  <div class="mb-3">
+    <label for="kategoriid" class="form-label">Kategori</label>
+    <select class="form-select" id="kategoriid" name="kategoriid" required>
+      <option value="">Pilih Kategori</option>
+      {% for kategori in kategori_list %}
+      <option value="{{ kategori[0] }}">{{ kategori[1] }}</option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <div class="mb-3">
+    <label for="penjualid" class="form-label">Penjual</label>
+    <select class="form-select" id="penjualid" name="penjualid" required>
+      <option value="">Pilih Penjual</option>
+      {% for penjual in penjual_list %}
+      <option value="{{ penjual[0] }}">{{ penjual[1] }}</option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <button type="submit" class="btn btn-primary">Simpan</button>
+  <a href="{{ url_for('kategori_penjual.index') }}" class="btn btn-secondary"
+    >Kembali</a
+  >
+</form>
+{% endblock %}

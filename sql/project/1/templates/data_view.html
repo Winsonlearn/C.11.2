@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+{% endblock %}
+
+{% block content %}
+    <h1>DATA KOTA</h1>    
+
+    <div
+   class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
+ >
+   <h1 class="h2">DATA VIEW</h1>
+   <div class="btn-toolbar mb-2 mb-md-0">
+     <!--<div class="btn-group me-2">
+                 <button type="button" class="btn btn-sm btn-outline-secondary">
+                   Share
+                 </button>
+                 <button type="button" class="btn btn-sm btn-outline-secondary">
+                   Export
+                 </button>
+               </div> -->
+     <!-- <button
+                 type="button"
+                 class="btn btn-sm btn-outline-secondary dropdown-toggle d-flex align-items-center gap-1"
+               >
+                 <svg class="bi" aria-hidden="true">
+                   <use xlink:href="#calendar3" />
+                 </svg>
+                 This week
+               </button> -->
+     <a
+       href="/data"
+       class="btn btn-sm btn-outline-secondary align-items-center gap-1"
+       >ADD DATA <i class="bi bi-file-earmark-plus"></i>
+     </a>
+   </div>
+ </div>
+
+    <table id="example" class="display" style="width: 100%">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">NAMA KOTA</th>
+                <th scope="col">HAPUS</th>
+                <th scope="col">UPDATE</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in data %}
+            <tr>
+                <td>{{ item[0] }}</td>
+                <td>{{ item[1] }}</td>
+                <td><a href="/hapus/{{item[0]}}"><i class="bi bi-x-lg"></i></a></td>
+                <td><a href="/update/{{item[0]}}"><i class="bi bi-pencil-square"></i></a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">NAMA KOTA</th>
+                <th scope="col">HAPUS</th>
+                <th scope="col">UPDATE</th>
+            </tr>
+        </tfoot>
+        
+    </table>
+
+    
+{% endblock %}

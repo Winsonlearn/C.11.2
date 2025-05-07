@@ -1,0 +1,92 @@
+{% extends 'base.html' %} {% block css %}
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="{{ url_for('static', filename='css/style.css') }}"
+/>
+{% endblock %} {% block content %}
+<div
+  class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
+>
+  <h1 class="h2">EDIT PRODUCT DETAILS</h1>
+</div>
+
+{% with messages = get_flashed_messages(with_categories=true) %} {% if messages
+%} {% for category, message in messages %}
+<div
+  class="alert alert-{{ category }} alert-dismissible fade show"
+  role="alert"
+>
+  {{ message }}
+  <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+</div>
+{% endfor %} {% endif %} {% endwith %}
+
+<form
+  action="{{ url_for('product_details.update', id=product_detail.id) }}"
+  method="post"
+>
+  <div class="mb-3">
+    <label for="product_name" class="form-label">Product Name</label>
+    <input
+      type="text"
+      class="form-control"
+      id="product_name"
+      name="product_name"
+      value="{{ product_detail.product_name }}"
+      required
+    />
+  </div>
+
+  <div class="mb-3">
+    <label for="harga" class="form-label">Harga</label>
+    <input
+      type="number"
+      class="form-control"
+      id="harga"
+      name="harga"
+      value="{{ product_detail.harga }}"
+      required
+    />
+  </div>
+
+  <div class="mb-3">
+    <label for="seller_name" class="form-label">Seller Name</label>
+    <input
+      type="text"
+      class="form-control"
+      id="seller_name"
+      name="seller_name"
+      value="{{ product_detail.seller_name or '' }}"
+    />
+  </div>
+
+  <div class="mb-3">
+    <label for="seller_address" class="form-label">Seller Address</label>
+    <textarea
+      class="form-control"
+      id="seller_address"
+      name="seller_address"
+      rows="3"
+    >
+{{ product_detail.seller_address or '' }}</textarea
+    >
+  </div>
+
+  <div class="mb-3">
+    <label for="city" class="form-label">City</label>
+    <input
+      type="text"
+      class="form-control"
+      id="city"
+      name="city"
+      value="{{ product_detail.city or '' }}"
+    />
+  </div>
+
+  <button type="submit" class="btn btn-primary">Update</button>
+  <a href="{{ url_for('product_details.index') }}" class="btn btn-secondary"
+    >Kembali</a
+  >
+</form>
+{% endblock %}

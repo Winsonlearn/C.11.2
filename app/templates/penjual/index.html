@@ -1,0 +1,53 @@
+{% extends 'base.html' %} {% block content %}
+<div
+  class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
+>
+  <h1 class="h2">DAFTAR PENJUAL</h1>
+  <div class="btn-toolbar mb-2 mb-md-0">
+    <div class="btn-group me-2">
+      <a
+        href="{{ url_for('penjual.create') }}"
+        class="btn btn-sm btn-outline-primary"
+        >Tambah Penjual</a
+      >
+    </div>
+  </div>
+</div>
+
+<div class="table-responsive small">
+  <table class="table table-striped table-sm">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Nama</th>
+        <th scope="col">Alamat</th>
+        <th scope="col">Kota</th>
+        <th scope="col">Aksi</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for penjual in penjual_list %}
+      <tr>
+        <td>{{ penjual[0] }}</td>
+        <td>{{ penjual[1] }}</td>
+        <td>{{ penjual[2] }}</td>
+        <td>{{ penjual[4] or '-' }}</td>
+        <td>
+          <a
+            href="{{ url_for('penjual.edit', id=penjual[0]) }}"
+            class="btn btn-sm btn-outline-warning"
+            >Edit</a
+          >
+          <a
+            href="{{ url_for('penjual.delete', id=penjual[0]) }}"
+            class="btn btn-sm btn-outline-danger"
+            onclick="return confirm('Yakin ingin menghapus?')"
+            >Hapus</a
+          >
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

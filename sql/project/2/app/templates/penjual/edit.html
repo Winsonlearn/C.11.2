@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block css %}
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="{{ url_for('static', filename='css/style.css') }}"
+/>
+{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+  <h1 class="h2">Edit Penjual</h1>
+</div>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+      <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+      </div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+
+<form action="{{ url_for('penjual.update', id=penjual.id) }}" method="post">
+  <div class="mb-3">
+    <label for="nama" class="form-label">Nama Penjual</label>
+    <input
+      type="text"
+      class="form-control"
+      id="nama"
+      name="nama"
+      value="{{ penjual.nama }}"
+      required
+    />
+  </div>
+
+  <div class="mb-3">
+    <label for="alamat" class="form-label">Alamat</label>
+    <textarea
+      class="form-control"
+      id="alamat"
+      name="alamat"
+      rows="3"
+      required
+    >{{ penjual.alamat }}</textarea>
+  </div>
+
+  <div class="mb-3">
+    <label for="kotaid" class="form-label">Kota</label>
+    <select class="form-select" id="kotaid" name="kotaid">
+      <option value="">-- Pilih Kota --</option>
+      {% for kota in kota_list %}
+        <option value="{{ kota.id }}" {% if kota.id == penjual.kotaid %}selected{% endif %}>
+          {{ kota.nama }}
+        </option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <button type="submit" class="btn btn-primary">Update</button>
+  <a href="{{ url_for('penjual.index') }}" class="btn btn-secondary">Kembali</a>
+</form>
+{% endblock %}

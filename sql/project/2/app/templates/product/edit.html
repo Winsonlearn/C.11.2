@@ -1,0 +1,65 @@
+{% extends 'base.html' %} {% block css %}
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="{{ url_for('static', filename='css/style.css') }}"
+/>
+{% endblock %} {% block content %}
+<div
+  class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
+>
+  <h1 class="h2">EDIT PRODUCT</h1>
+</div>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+      <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+      </div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+
+<form action="{{ url_for('product.update', id=product.id) }}" method="post">
+  <div class="mb-3">
+    <label for="nama" class="form-label">Nama Product</label>
+    <input
+      type="text"
+      class="form-control"
+      id="nama"
+      name="nama"
+      value="{{ product.nama }}"
+      required
+    />
+  </div>
+
+  <div class="mb-3">
+    <label for="harga" class="form-label">Harga</label>
+    <input
+      type="number"
+      class="form-control"
+      id="harga"
+      name="harga"
+      value="{{ product.harga }}"
+      required
+    />
+  </div>
+
+  <div class="mb-3">
+    <label for="penjualid" class="form-label">Penjual</label>
+    <select class="form-select" id="penjualid" name="penjualid">
+      <option value="">-- Pilih Penjual --</option>
+      {% for penjual in penjual_list %}
+        <option value="{{ penjual.id }}" {% if penjual.id == product.penjualid %}selected{% endif %}>
+          {{ penjual.nama }}
+        </option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <button type="submit" class="btn btn-primary">Update</button>
+  <a href="{{ url_for('product.index') }}" class="btn btn-secondary">Kembali</a>
+</form>
+{% endblock %}
