@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Dashboard</title>
+  </head>
+  <body>
+    <h1>Dashboard</h1>
+    <nav>
+      <a href="/profile">Profil</a> |
+      {% if user.role == "admin" %}
+      <a href="/data_customer">Lihat Semua Data Customer</a> |
+      {% endif %}
+      <a href="/logout">Logout</a>
+    </nav>
+    <hr />
+    <h2>Selamat Datang, {{ user.username }}!</h2>
+    <p>Role: {{ user.role }}</p>
+    {% if user.profile %}
+    <h3>Data Profil:</h3>
+    <p>Nama: {{ user.profile.nama }}</p>
+    <p>Jenis Kelamin: {{ user.profile.jk }}</p>
+    <p>Alamat: {{ user.profile.alamat }}</p>
+    {% else %}
+    <p>
+      Profil belum diisi. <a href="/profile">Klik di sini</a> untuk mengisi
+      profil.
+    </p>
+    {% endif %}
+  </body>
+</html>

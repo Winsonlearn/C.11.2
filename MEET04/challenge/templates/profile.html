@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Profil</title>
+</head>
+<body>
+    <h1>Edit Profil</h1>
+    <nav>
+        <a href="/">Dashboard</a> |
+        <a href="/logout">Logout</a>
+    </nav>
+    <hr>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <p style="color: green;">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <form method="POST">
+        <p>
+            <label>Nama Lengkap:</label><br>
+            <input type="text" name="nama" value="{{ user.profile.nama if user.profile else '' }}" required>
+        </p>
+        <p>
+            <label>Jenis Kelamin:</label><br>
+            <select name="jk" required>
+                <option value="">Pilih Jenis Kelamin</option>
+                <option value="Laki-laki" {% if user.profile and user.profile.jk == 'Laki-laki' %}selected{% endif %}>Laki-laki</option>
+                <option value="Perempuan" {% if user.profile and user.profile.jk == 'Perempuan' %}selected{% endif %}>Perempuan</option>
+            </select>
+        </p>
+        <p>
+            <label>Alamat:</label><br>
+            <textarea name="alamat" rows="3" required>{{ user.profile.alamat if user.profile else '' }}</textarea>
+        </p>
+        <button type="submit">Simpan Profil</button>
+        <a href="/">Kembali</a>
+    </form>
+</body>
+</html> 

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Semua Profil User</title>
+  </head>
+  <body>
+    <h1>Daftar Customer</h1>
+    <nav>
+      <a href="/">Dashboard</a> |
+      <a href="/logout">Logout</a>
+    </nav>
+    <hr />
+    {% with messages = get_flashed_messages() %} {% if messages %} {% for
+    message in messages %}
+    <p style="color: red">{{ message }}</p>
+    {% endfor %} {% endif %} {% endwith %}
+
+    <table border="1">
+      <tr>
+        <th>Username</th>
+        <th>Role</th>
+        <th>Nama</th>
+        <th>Jenis Kelamin</th>
+        <th>Alamat</th>
+      </tr>
+      {% for user in users %}
+      <tr>
+        <td>{{ user.username }}</td>
+        <td>{{ user.role }}</td>
+        {% if user.profile %}
+        <td>{{ user.profile.nama }}</td>
+        <td>{{ user.profile.jk }}</td>
+        <td>{{ user.profile.alamat }}</td>
+        {% else %}
+        <td colspan="3">Belum mengisi profil</td>
+        {% endif %}
+      </tr>
+      {% endfor %}
+    </table>
+  </body>
+</html>
