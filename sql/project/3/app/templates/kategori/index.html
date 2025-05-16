@@ -1,0 +1,67 @@
+{% extends 'base.html' %} {% block css %}
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="{{ url_for('static', filename='css/style.css') }}"
+/>
+{% endblock %} {% block content %}
+<div
+  class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
+>
+  <h1 class="h2">DATA KATEGORI</h1>
+  <div class="btn-toolbar mb-2 mb-md-0">
+    <a
+      href="{{ url_for('kategori.create') }}"
+      class="btn btn-sm btn-outline-secondary align-items-center gap-1"
+    >
+      ADD KATEGORI <i class="bi bi-file-earmark-plus"></i>
+    </a>
+  </div>
+</div>
+
+{% with messages = get_flashed_messages(with_categories=true) %} {% if messages
+%} {% for category, message in messages %}
+<div
+  class="alert alert-{{ category }} alert-dismissible fade show"
+  role="alert"
+>
+  {{ message }}
+  <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+</div>
+{% endfor %} {% endif %} {% endwith %}
+
+<table id="example" class="display" style="width: 100%">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">NAMA KATEGORI</th>
+      <th scope="col">EDIT</th>
+      <th scope="col">HAPUS</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for kategori in kategori_list %}
+    <tr>
+      <td>{{ kategori.id }}</td>
+      <td>{{ kategori.nama }}</td>
+      <td>
+        <a href="{{ url_for('kategori.edit', id=kategori.id) }}">
+          <i class="bi bi-pencil-square"></i>
+        </a>
+      </td>
+      <td>
+        <form
+          action="{{ url_for('kategori.delete', id=kategori.id) }}"
+          method="post"
+          onsubmit="return confirm('Yakin ingin menghapus?')"
+        >
+          <button type="submit" class="btn btn-link p-0 text-danger">
+            <i class="bi bi-x-lg"></i>
+          </button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

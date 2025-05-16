@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block css %}
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="{{ url_for('static', filename='css/style.css') }}"
+/>
+{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+  <h1 class="h2">Data Penjual</h1>
+  <div class="btn-toolbar mb-2 mb-md-0">
+    <a
+      href="{{ url_for('penjual.create') }}"
+      class="btn btn-sm btn-outline-secondary align-items-center gap-1"
+    >
+      Tambah Penjual <i class="bi bi-file-earmark-plus"></i>
+    </a>
+  </div>
+</div>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+      <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+      </div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+
+<table id="example" class="table table-striped" style="width: 100%">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Nama</th>
+      <th scope="col">Alamat</th>
+      <th scope="col">Kota</th>
+      <th scope="col">Edit</th>
+      <th scope="col">Hapus</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for penjual in penjual_list %}
+    <tr>
+      <td>{{ penjual.id }}</td>
+      <td>{{ penjual.nama }}</td>
+      <td>{{ penjual.alamat }}</td>
+      <td>{{ penjual.kota_nama or '-' }}</td>
+      <td>
+        <a href="{{ url_for('penjual.edit', id=penjual.id) }}">
+          <i class="bi bi-pencil-square"></i>
+        </a>
+      </td>
+      <td>
+        <form action="{{ url_for('penjual.delete', id=penjual.id) }}" method="post" onsubmit="return confirm('Yakin ingin menghapus?')">
+          <button type="submit" class="btn btn-link p-0 text-danger">
+            <i class="bi bi-x-lg"></i>
+          </button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

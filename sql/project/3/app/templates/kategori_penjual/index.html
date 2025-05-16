@@ -1,0 +1,72 @@
+{% extends 'base.html' %} {% block css %}
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="{{ url_for('static', filename='css/style.css') }}"
+/>
+{% endblock %} {% block content %}
+<div
+  class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
+>
+  <h1 class="h2">DAFTAR KATEGORI PENJUAL</h1>
+  <div class="btn-toolbar mb-2 mb-md-0">
+    <div class="btn-group me-2">
+      <a
+        href="{{ url_for('kategori_penjual.create') }}"
+        class="btn btn-sm btn-outline-primary"
+        >Tambah Kategori Penjual</a
+      >
+    </div>
+  </div>
+</div>
+
+{% with messages = get_flashed_messages(with_categories=true) %} {% if messages
+%} {% for category, message in messages %}
+<div
+  class="alert alert-{{ category }} alert-dismissible fade show"
+  role="alert"
+>
+  {{ message }}
+  <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+</div>
+{% endfor %} {% endif %} {% endwith %}
+
+<div class="table-responsive small">
+  <table class="table table-striped table-sm">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Kategori</th>
+        <th scope="col">Penjual</th>
+        <th scope="col">Aksi</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for kategori_penjual in kategori_penjual_list %}
+      <tr>
+        <td>{{ kategori_penjual.id }}</td>
+        <td>{{ kategori_penjual.kategori_nama }}</td>
+        <td>{{ kategori_penjual.penjual_nama }}</td>
+        <td>
+          <a
+            href="{{ url_for('kategori_penjual.edit', id=kategori_penjual.id) }}"
+            class="btn btn-sm btn-outline-warning"
+            >Edit</a
+          >
+          <form
+            action="{{ url_for('kategori_penjual.delete', id=kategori_penjual.id) }}"
+            method="post"
+            style="display: inline-block"
+            onsubmit="return confirm('Yakin ingin menghapus?')"
+          >
+            <button type="submit" class="btn btn-sm btn-outline-danger">
+              Hapus
+            </button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

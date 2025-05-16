@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> slogan </title>
+</head>
+<body>
+    <h1>Input Data Siswa</h1>
+    <form action="/simpan" method="post">
+        <label for="nama">Nama</label>
+        <input type="text" name="nama" placeholder="Nama">
+        <label for="kelas">Kelas</label>
+        <input type="text" name="kelas" placeholder="Kelas">
+        <button type="submit">Tambah</button>
+        
+    </form>
+    <h1>Data Siswa</h1>
+    <ul>
+        {% for siswa in siswa_list %}
+            <li>{{ siswa.nama }} - {{ siswa.kelas }} |||
+                <a href="/hapus/{{ siswa.id }}" onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')">Hapus</a>
+                <a href="/update/{{ siswa.id }}">Update</a>
+            </li>
+
+        {% endfor %}
+    </ul>
+</body>
+</html>
