@@ -33,13 +33,13 @@ def cekuser():
             password=generate_password_hash("admin123"),
             role="admin"
         )
-        db.session.add(admin)
         
         user = User(
             username="user",
             password=generate_password_hash("user123"),
             role="user"
         )
+        db.session.add(admin)
         db.session.add(user)
         db.session.commit()
 

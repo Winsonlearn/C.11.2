@@ -2,6 +2,70 @@
 <html>
   <head>
     <title>Semua Profil User</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: grey;
+      }
+      h1 {
+        color: white;
+        text-align: center;
+        margin-bottom: 30px;
+      }
+      nav {
+        background-color: black;
+        padding: 15px;
+        border-radius: 5px;
+        margin-bottom: 20px;
+      }
+      nav a {
+        color: white;
+        text-decoration: none;
+        margin: 0 10px;
+      }
+      nav a:hover {
+        color: magenta;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: white;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+        overflow: hidden;
+      }
+      th, td {
+        padding: 12px;
+        text-align: left;
+        border: 1px solid #ddd;
+      }
+      th {
+        background-color: blue;
+        color: white;
+        font-weight: bold;
+      }
+      tr:nth-child(even) {
+        background-color: white;
+      }
+      tr:hover {
+        background-color: white;
+      }
+      p[style*="color: red"] {
+        background-color: red;
+        padding: 10px;
+        border-radius: 4px;
+        border: 1px solid yellow;
+        margin-bottom: 20px;
+      }
+      hr {
+        border: none;
+        border-top: 1px solid #ddd;
+        margin: 20px 0;
+      }
+    </style>
   </head>
   <body>
     <h1>Daftar Customer</h1>
@@ -15,7 +79,7 @@
     <p style="color: red">{{ message }}</p>
     {% endfor %} {% endif %} {% endwith %}
 
-    <table border="1">
+    <table>
       <tr>
         <th>Username</th>
         <th>Role</th>

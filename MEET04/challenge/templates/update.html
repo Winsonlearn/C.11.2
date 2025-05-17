@@ -3,22 +3,22 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Update Data Siswa</title>
+    <title>Update Data Customer</title>
   </head>
   <body>
-    <h1>Update Data Siswa</h1>
+    <h1>Update Data Customer</h1>
     <form action="/update/{{ siswa.id }}" method="post">
       <label for="nama">Nama</label>
       <input type="text" name="nama" value="{{ siswa.nama }}" required />
-      <br>
-      <br>
+      <br />
+      <br />
       <label for="kelas">Kelas</label>
       <input type="text" name="kelas" value="{{ siswa.kelas }}" required />
-      <br>
-      <br>
+      <br />
+      <br />
       <button type="submit">Update</button>
     </form>
-    <br>
+    <br />
     <a href="/">Kembali</a>
   </body>
 </html>
