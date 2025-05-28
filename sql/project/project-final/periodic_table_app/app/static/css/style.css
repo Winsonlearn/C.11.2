@@ -1,0 +1,726 @@
+/* Basic Reset & Global Styles */
+body, h1, h2, h3, h4, h5, h6, p, ul, li, div, nav, footer, table, th, td, form, input, textarea, select, button {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.6;
+    color: #333; /* Darker gray for primary text */
+    background-color: #f4f7f9; /* Light grayish-blue background */
+}
+
+.container {
+    width: 90%;
+    max-width: 1320px; /* Max width for larger screens */
+    margin: 30px auto; /* Centering with more top/bottom margin */
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 10px; /* Softer, larger corners */
+    box-shadow: 0 6px 18px rgba(0,0,0,0.07); /* Enhanced shadow */
+}
+
+/* Navigation Bar */
+nav {
+    background-color: #ffffff; /* White nav background */
+    padding: 0; /* Remove padding, handle with ul */
+    text-align: center;
+    border-bottom: 1px solid #e0e0e0; /* Lighter, subtle border */
+    margin-bottom: 30px; /* Space below nav */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: inline-block; /* Center the ul */
+}
+
+nav li {
+    display: inline-block; /* Horizontal menu items */
+}
+
+nav a {
+    display: block; /* Make entire area clickable */
+    color: #555; /* Medium gray for nav links */
+    padding: 20px 25px; /* Generous padding */
+    text-decoration: none;
+    font-size: 1.05em;
+    font-weight: 500;
+    transition: color 0.2s ease, background-color 0.2s ease, border-bottom-color 0.2s ease; /* Added border-bottom-color */
+    border-bottom: 3px solid transparent; /* For active state indicator */
+}
+
+nav a:hover { /* Keep hover distinct */
+    color: #007bff; /* Primary color for hover */
+    background-color: #f0f4f8; /* Lighter background on hover */
+}
+
+nav a.active {
+    color: #0056b3; /* Darker blue for active text */
+    background-color: #e9ecef; /* Slightly different background for active */
+    border-bottom-color: #007bff; /* Active indicator */
+    font-weight: 600;
+}
+
+hr {
+    border: 0;
+    height: 1px;
+    background-color: #e0e0e0;
+    margin: 25px 0;
+}
+
+/* Headings */
+h1, h2, h3, h4 {
+    color: #2c3e50; /* Darker, slightly desaturated blue for headings */
+    margin-bottom: 0.8em;
+    font-weight: 600; /* Bolder headings */
+}
+h1 { font-size: 2.4rem; line-height: 1.2; }
+h2 { font-size: 1.9rem; line-height: 1.3; }
+h3 { font-size: 1.6rem; line-height: 1.4; }
+h4 { font-size: 1.3rem; line-height: 1.4; }
+
+p {
+    margin-bottom: 1rem;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 30px 0;
+    margin-top: 50px;
+    border-top: 1px solid #e0e0e0;
+    font-size: 0.9em;
+    color: #777; /* Lighter gray for footer */
+}
+
+/* Periodic Table Grid */
+.periodic-table-grid {
+    display: grid;
+    grid-template-columns: repeat(18, minmax(55px, 1fr)); /* Slightly smaller min */
+    grid-auto-rows: minmax(55px, auto);
+    gap: 4px; /* Slightly reduced gap */
+    margin-bottom: 30px;
+    padding: 10px;
+    background-color: #eef1f3; /* Lighter grid background */
+    border-radius: 8px;
+    max-width: 100%; /* Ensure it fits within container */
+    overflow-x: auto; /* Allow horizontal scrolling on small screens if needed */
+}
+
+.element {
+    border: 1px solid #d1d8dd; /* Softer border */
+    padding: 4px;
+    text-align: center;
+    cursor: pointer;
+    background-color: #fff;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+    font-size: 9px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around; /* Adjusted for better vertical distribution */
+    align-items: center;
+    min-height: 60px; /* Slightly increased min-height for a bit more space */
+    border-radius: 5px; /* Slightly more rounded corners for elements */
+    position: relative; /* For z-index on hover */
+}
+
+.element:hover {
+    transform: scale(1.12);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.12);
+    border-color: #007bff;
+    z-index: 10;
+    background-color: #fff; /* Ensure background stays white on hover for colored elements */
+}
+
+.element .atomic-number { font-size: 0.7em; color: #555; position: absolute; top: 3px; left: 4px; }
+.element .symbol { font-size: 1.35em; font-weight: 700; margin: 1px 0; color: #222;}
+.element .name { font-size: 0.8em; word-break: break-word; color: #444; line-height: 1.15; } /* Increased font-size and line-height */
+.element .atomic-mass { font-size: 0.65em; color: #666; margin-top: 1px;}
+
+.element-hidden {
+    display: none !important;
+}
+
+/* Element type colors - kept existing, ensured text has contrast */
+.alkali-metal { background-color: #ffcdd2; color: #3E2723;} /* Lighter red, dark text */
+.alkaline-earth-metal { background-color: #FFE0B2; color: #3E2723;} /* Lighter orange, dark text */
+.lanthanide { background-color: #FFD1E3; color: #3E2723;} /* Lighter pink, dark text */
+.actinide { background-color: #E1BEE7; color: #3E2723;} /* Lighter purple, dark text */
+.transition-metal { background-color: #B3E5FC; color: #1A237E;} /* Lighter blue, dark blue text */
+.post-transition-metal { background-color: #C8E6C9; color: #1B5E20;} /* Lighter green, dark green text */
+.metalloid { background-color: #B2DFDB; color: #004D40;} /* Lighter teal, dark teal text */
+.diatomic-nonmetal, .polyatomic-nonmetal, .nonmetal { background-color: #FFF9C4; color: #333300;} /* Lighter yellow, dark text */
+.noble-gas { background-color: #D1C4E9; color: #311B92;} /* Lighter deep purple, dark purple text */
+.unknown-unknown-likely-metal, .unknown-predicted, .unknown-possibly-metallic, .unknown-properties { background-color: #ECEFF1; color: #37474F; border: 1px dashed #90A4AE;}
+
+/* Element Details View */
+#element-details-view {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    padding: 25px;
+    margin-top: 30px;
+    border: 1px solid #e7e7e7;
+}
+#element-details-view h3 {
+    color: #007bff; /* Primary color for details heading */
+    margin-bottom: 20px;
+    font-weight: 500;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 10px;
+}
+
+.element-detail-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px; /* Increased gap */
+    margin-bottom: 25px;
+}
+
+.detail-item {
+    padding: 15px;
+    background-color: #ffffff;
+    border: 1px solid #dce4ec; /* Slightly more visible border */
+    border-radius: 6px;
+    font-size: 0.98em; /* Slightly larger font */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.04);
+}
+
+.detail-item strong {
+    color: #34495e; /* Dark blue-gray for strong text */
+    margin-right: 8px;
+    font-weight: 500;
+}
+
+.detail-item.wide { grid-column: 1 / -1; }
+
+.element-images {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+    align-items: flex-start;
+    justify-content: center; /* Center items if not full */
+    margin-top: 25px;
+    padding: 20px;
+    background-color: #f0f4f8; /* Light background for image section */
+    border: 1px solid #d8dfe5;
+    border-radius: 6px;
+}
+
+.element-image-item {
+    text-align: center;
+    flex-basis: 220px;
+    flex-grow: 1;
+    padding: 15px;
+    border: 1px solid #d1d9e0;
+    border-radius: 6px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.element-image-item p { margin-bottom: 10px; font-size: 0.9em; color: #555; }
+.element-image-item img {
+    display: block;
+    margin: 0 auto 10px auto;
+    border-radius: 5px;
+    background-color: #fff;
+    max-width: 100%;
+    height: auto;
+    border: 1px solid #eee;
+}
+.element-image-item small em { font-size: 0.85em; color: #777; }
+
+/* Filter Controls Styling */
+.filter-controls {
+    margin-bottom: 30px;
+    padding: 20px;
+    background-color: #ffffff; /* White background for filters */
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+}
+.filter-controls h4 {
+    margin-bottom: 10px;
+    font-size: 1.15rem;
+    font-weight: 500;
+}
+
+#search-bar, #element-list-filter {
+    padding: 12px 18px; /* More padding */
+    border: 1px solid #ccc; /* Standard border color */
+    border-radius: 6px;
+    width: 100%;
+    font-size: 1em;
+    transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+#search-bar:focus, #element-list-filter:focus {
+    border-color: #007bff;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.2);
+}
+
+.filter-buttons-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px; /* Increased gap */
+    justify-content: flex-start; /* Align to start */
+}
+
+.filter-button {
+    padding: 9px 16px; /* Balanced padding */
+    border: 1px solid #007bff;
+    background-color: #fff;
+    color: #007bff;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s, transform 0.1s;
+    font-weight: 500;
+    font-size: 0.95em;
+}
+
+.filter-button:hover {
+    background-color: #007bff;
+    color: #fff;
+    transform: translateY(-1px);
+}
+
+.filter-button.active {
+    background-color: #0056b3; /* Darker blue for active */
+    color: #fff;
+    border-color: #0056b3;
+}
+.filter-button.active:hover {
+    background-color: #004a99;
+}
+
+/* Form Styling */
+.form-group {
+    margin-bottom: 22px; /* More space */
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #495057;
+    font-size: 0.95em;
+}
+
+.form-control,
+select.form-control,
+textarea.form-control {
+    width: 100%;
+    padding: 12px 16px; /* Comfortable padding */
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 1em;
+    background-color: #fff;
+    color: #495057;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    line-height: 1.5; /* Improved line height for inputs */
+}
+.form-control[readonly] {
+    background-color: #e9ecef;
+    opacity: 0.9;
+    cursor: not-allowed;
+}
+
+.form-control:focus,
+select.form-control:focus,
+textarea.form-control:focus {
+    border-color: #86b7fe; /* Softer focus blue */
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+}
+
+select.form-control { /* Specific styling for select */
+    appearance: none; /* Remove default arrow */
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 0.9rem center;
+    background-size: 10px 10px;
+    padding-right: 2.5rem; /* Space for custom arrow */
+}
+
+textarea.form-control {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.errors {
+    list-style: none;
+    padding: 0;
+    margin: 8px 0 0 0;
+    color: #d9534f; /* Bootstrap danger color alternative */
+    font-size: 0.9em;
+}
+
+.errors li { margin-bottom: 5px; }
+
+/* Flashed Messages (Alerts) */
+.flashes { margin-bottom: 25px; }
+
+.alert {
+    padding: 16px 22px; /* More padding */
+    margin-bottom: 18px;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    font-size: 1em;
+    display: flex; /* For icon alignment if added */
+    align-items: center;
+}
+
+.alert-success { color: #155724; background-color: #d4edda; border-color: #c3e6cb; }
+.alert-danger { color: #721c24; background-color: #f8d7da; border-color: #f5c6cb; }
+.alert-warning { color: #856404; background-color: #fff3cd; border-color: #ffeeba; }
+.alert-info { color: #0c5460; background-color: #d1ecf1; border-color: #bee5eb; }
+
+/* Button Styling (Refined) */
+.btn {
+    display: inline-block;
+    font-weight: 500;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: 10px 22px; /* Balanced padding */
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: 6px; /* Consistent border-radius */
+    text-decoration: none;
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+}
+
+.btn-sm {
+    padding: 0.3rem 0.8rem;
+    font-size: 0.875rem;
+    border-radius: 5px;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+}
+.btn-primary:hover { color: #fff; background-color: #0069d9; border-color: #0062cc; transform: translateY(-1px); box-shadow: 0 2px 5px rgba(0,123,255,0.2);}
+.btn-primary:focus, .btn-primary.focus { box-shadow: 0 0 0 0.2rem rgba(38,143,255,.5); }
+.btn-primary:active { background-color: #005cbf; border-color: #0056b3; }
+
+.btn-secondary {
+    color: #fff;
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+.btn-secondary:hover { color: #fff; background-color: #5a6268; border-color: #545b62; transform: translateY(-1px); box-shadow: 0 2px 5px rgba(0,0,0,0.1);}
+.btn-secondary:focus, .btn-secondary.focus { box-shadow: 0 0 0 0.2rem rgba(130,138,145,.5); }
+
+.btn-success {
+    color: #fff;
+    background-color: #28a745;
+    border-color: #28a745;
+}
+.btn-success:hover { color: #fff; background-color: #218838; border-color: #1e7e34; transform: translateY(-1px); box-shadow: 0 2px 5px rgba(40,167,69,0.2);}
+.btn-success:focus, .btn-success.focus { box-shadow: 0 0 0 0.2rem rgba(72,180,97,.5); }
+
+.btn-danger {
+    color: #fff;
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+.btn-danger:hover { color: #fff; background-color: #c82333; border-color: #bd2130; transform: translateY(-1px); box-shadow: 0 2px 5px rgba(220,53,69,0.2);}
+.btn-danger:focus, .btn-danger.focus { box-shadow: 0 0 0 0.2rem rgba(225,83,97,.5); }
+
+.btn-info {
+    color: #fff;
+    background-color: #17a2b8;
+    border-color: #17a2b8;
+}
+.btn-info:hover { color: #fff; background-color: #138496; border-color: #117a8b; transform: translateY(-1px); box-shadow: 0 2px 5px rgba(23,162,184,0.2);}
+.btn-info:focus, .btn-info.focus { box-shadow: 0 0 0 0.2rem rgba(58,176,195,.5); }
+
+.btn-link {
+    font-weight: 400;
+    color: #007bff;
+    text-decoration: none;
+    background-color: transparent;
+    border: none;
+}
+.btn-link:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+/* Table Styling (for Manage Elements page) */
+.table-container {
+    overflow-x: auto; /* Responsive tables */
+    margin-bottom: 20px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+}
+
+.table {
+    width: 100%;
+    margin-bottom: 0; /* Handled by container */
+    color: #333;
+    border-collapse: collapse;
+}
+
+.table th,
+.table td {
+    padding: 12px 15px; /* Consistent padding */
+    vertical-align: middle; /* Better vertical alignment */
+    border-top: 1px solid #e0e0e0;
+    text-align: left; /* Default left align */
+}
+
+.table thead th {
+    vertical-align: bottom;
+    border-bottom: 2px solid #adb5bd; /* Heavier border for header bottom */
+    background-color: #f8f9fa; /* Light header background */
+    font-weight: 600; /* Bolder header text */
+    color: #495057;
+    white-space: nowrap; /* Prevent header text wrapping */
+}
+
+.table tbody tr:nth-of-type(odd) {
+    background-color: #fdfdfd; /* Very subtle striping */
+}
+
+.table-hover tbody tr:hover {
+    color: #212529;
+    background-color: #f1f5f8; /* Slightly more noticeable hover */
+}
+
+.table th[data-column] {
+    cursor: pointer;
+}
+
+.table th[data-column] .sort-indicator {
+    font-size: 0.9em;
+    margin-left: 6px;
+    color: #007bff;
+    display: inline-block; /* For proper alignment */
+    transition: transform 0.2s;
+}
+.table th[data-column][data-sort-direction="asc"] .sort-indicator::after { content: " ▲"; }
+.table th[data-column][data-sort-direction="desc"] .sort-indicator::after { content: " ▼"; }
+
+/* Action Buttons in tables or detail views */
+.action-buttons {
+    display: flex;
+    gap: 8px; /* Space between buttons */
+    align-items: center;
+}
+.action-buttons .btn, .action-buttons form .btn {
+    margin-right: 0; /* Remove individual margins if using gap */
+}
+.action-buttons form {
+    margin: 0; /* Reset form margins */
+    display: inline-block; /* Align forms correctly */
+}
+
+.admin-controls { /* For "Add New Element" button above table */
+    text-align: right;
+    margin-bottom: 20px;
+}
+
+.text-muted {
+    color: #6c757d !important;
+}
+
+/* Element View Page Specifics */
+.element-view-container {
+    /* Can add specific container adjustments if needed, but .container is general */
+}
+
+.element-view-header {
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e0e0e0;
+    text-align: center; /* Center the main title */
+}
+.element-view-header h1 {
+    font-size: 2.8rem; /* Larger title */
+    color: #007bff; /* Primary color */
+    margin-bottom: 10px;
+}
+.element-view-header .lead {
+    font-size: 1.2rem;
+    color: #555;
+    margin-bottom: 15px;
+}
+.element-view-header .action-buttons {
+    justify-content: center; /* Center buttons under the header */
+    margin-top: 15px;
+}
+
+.list-styled {
+    list-style: none;
+    padding-left: 0; /* Remove default padding */
+    margin-top: 10px;
+}
+.list-styled li {
+    padding: 10px 0 10px 20px; /* Increased padding, more left indent */
+    border-bottom: 1px dashed #e8e8e8;
+    position: relative;
+    font-size: 0.95em;
+}
+.list-styled li::before {
+    content: "\2023"; /* Bullet character • */
+    position: absolute;
+    left: 0;
+    top: 10px;
+    color: #007bff;
+    font-size: 1em; /* Match li font-size */
+    line-height: 1; /* Align bullet properly */
+}
+
+.list-styled li:last-child {
+    border-bottom: none;
+}
+
+/* Card-like sections for element view */
+.data-section {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 25px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    border: 1px solid #e9ecef;
+}
+.data-section h4 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+    color: #0056b3; /* Darker blue for section titles */
+    border-bottom: 1px solid #e0e0e0; /* Refined border */
+    padding-bottom: 10px; /* Increased padding */
+}
+
+/* Comparison Page Styles */
+.comparison-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    margin-top: 20px;
+}
+
+.comparison-card {
+    /* Uses .data-section styles by default */
+    padding-top: 15px; /* Adjust padding if needed */
+}
+
+.comparison-card h4 {
+    font-size: 1.3rem; /* Slightly larger for element name */
+    color: #007bff;
+    margin-bottom: 12px;
+}
+
+.comparison-card p {
+    font-size: 0.95em;
+    margin-bottom: 8px;
+    line-height: 1.5;
+}
+
+.comparison-card p strong {
+    color: #34495e;
+    min-width: 130px; /* Align values somewhat */
+    display: inline-block;
+}
+
+/* Interactive Table Enhancements */
+.element.highlight-group {
+    border: 2px solid #ffc107; /* Amber/Warning color for group highlight */
+    box-shadow: 0 0 10px rgba(255, 193, 7, 0.5);
+}
+
+.element.highlight-period {
+    border: 2px solid #28a745; /* Green/Success color for period highlight */
+    box-shadow: 0 0 10px rgba(40, 167, 69, 0.5);
+}
+
+.element.highlight-group.highlight-period {
+    border: 2px solid #dc3545; /* Red/Danger if in both, or choose another distinct color */
+    box-shadow: 0 0 10px rgba(220, 53, 69, 0.5);
+}
+
+.element-tooltip {
+    visibility: hidden;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px 12px;
+    position: absolute;
+    z-index: 15; /* Ensure tooltip is above elements */
+    bottom: 110%; /* Position above the element */
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.2s, visibility 0.2s;
+    font-size: 0.85em;
+    white-space: nowrap;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.element-tooltip::after { /* Arrow for the tooltip */
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #333 transparent transparent transparent;
+}
+
+.element:hover .element-tooltip {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Responsive adjustments if necessary */
+@media (max-width: 768px) {
+    .periodic-table-grid {
+        grid-template-columns: repeat(9, minmax(45px, 1fr)); /* Adjust for smaller screens */
+        gap: 3px;
+    }
+    .element {
+        min-height: 45px;
+        font-size: 8px;
+    }
+    .element .symbol { font-size: 1.1em; }
+    .element .name { font-size: 0.65em; }
+
+    nav ul { display: block; } /* Stack nav items on small screens */
+    nav li { display: block; text-align: left; }
+    nav a { padding: 12px 20px; border-bottom: 1px solid #eee; }
+    nav a.active { border-bottom-color: #007bff; }
+
+    .container { padding: 20px; width: 95%; }
+    h1 { font-size: 2rem; }
+    h2 { font-size: 1.6rem; }
+
+    .filter-controls { padding: 15px; }
+    .filter-buttons-container { justify-content: center; }
+}
+
+@media (max-width: 480px) {
+    .element .atomic-number { font-size: 0.6em; }
+    .btn { padding: 8px 15px; font-size: 0.9rem; }
+    .action-buttons { flex-direction: column; align-items: stretch; }
+    .action-buttons .btn, .action-buttons form .btn { width: 100%; margin-bottom: 8px;}
+    .action-buttons form { width: 100%; }
+} 

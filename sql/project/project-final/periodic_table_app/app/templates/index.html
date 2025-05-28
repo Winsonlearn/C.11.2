@@ -1,0 +1,179 @@
+{% extends "layout.html" %} {% block content %}
+<div class="container">
+  <h1>{{ title }}</h1>
+
+  {# Flashed messages #} {% with messages =
+  get_flashed_messages(with_categories=true) %} {% if messages %}
+  <div class="flashes">
+    {% for category, message in messages %}
+    <div class="alert alert-{{ category }}">{{ message }}</div>
+    {% endfor %}
+  </div>
+  {% endif %} {% endwith %}
+
+  <div class="admin-controls">
+    <a href="{{ url_for('main.create_element') }}" class="btn btn-success"
+      >Add New Element</a
+    >
+  </div>
+
+  <div class="filter-controls">
+    <h4>Filter Elements</h4>
+    <input
+      type="text"
+      id="search-bar"
+      class="form-control"
+      placeholder="Search by name or symbol..."
+    />
+
+    {% if element_types %}
+    <div class="filter-buttons-container">
+      <button class="filter-button active" data-type="all">All Types</button>
+      {% for type in element_types %}
+      <button
+        class="filter-button"
+        data-type="{{ type|lower|replace(' ', '-') }}"
+      >
+        {{ type }}
+      </button>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </div>
+
+  <div class="periodic-table-grid">
+    {% for element in elements %}
+    <div
+      class="element {{ element.element_type|lower|replace(' ', '-') if element.element_type else 'unknown' }}"
+      style="grid-column: {{ element.xpos if element.xpos else 'auto' }}; grid-row: {{ element.ypos if element.ypos else 'auto' }};"
+      data-atomic-number="{{ element.atomic_number }}"
+      data-name="{{ element.name|lower }}"
+      data-symbol="{{ element.symbol|lower }}"
+      data-element-type="{{ element.element_type|lower|replace(' ', '-') if element.element_type else 'unknown' }}"
+    >
+      <div class="atomic-number">{{ element.atomic_number }}</div>
+      <div class="symbol">{{ element.symbol }}</div>
+      <div class="name">{{ element.name }}</div>
+      {% if element.atomic_mass %}
+      <div class="atomic-mass">
+        {{ "%.3f"|format(element.atomic_mass|float) }}
+      </div>
+      {% endif %}
+      <span class="element-tooltip"
+        >#{{ element.atomic_number }} - {{ element.symbol }} - {{ element.name
+        }}</span
+      >
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const allPeriodicElements = document.querySelectorAll(".element");
+    const searchBar = document.getElementById("search-bar");
+    const filterButtons = document.querySelectorAll(".filter-button");
+
+    allPeriodicElements.forEach((element) => {
+      element.addEventListener("click", function () {
+        const atomicNumber = this.dataset.atomicNumber;
+        window.location.href = `/element/view/${atomicNumber}`;
+      });
+    });
+
+    function applyFilters() {
+      const searchTerm = searchBar.value.toLowerCase();
+      const activeFilterButton = document.querySelector(
+        ".filter-button.active"
+      );
+      const activeType = activeFilterButton
+        ? activeFilterButton.dataset.type
+        : "all";
+
+      allPeriodicElements.forEach((element) => {
+        const name = element.dataset.name;
+        const symbol = element.dataset.symbol;
+        const elementType = element.dataset.elementType;
+
+        const matchesSearch =
+          searchTerm === "" ||
+          name.includes(searchTerm) ||
+          symbol.includes(searchTerm);
+        const matchesType = activeType === "all" || elementType === activeType;
+
+        if (matchesSearch && matchesType) {
+          element.classList.remove("element-hidden");
+        } else {
+          element.classList.add("element-hidden");
+        }
+      });
+    }
+
+    if (searchBar) {
+      searchBar.addEventListener("input", applyFilters);
+    }
+
+    filterButtons.forEach((button) => {
+      button.addEventListener("click", function () {
+        filterButtons.forEach((btn) => btn.classList.remove("active"));
+        this.classList.add("active");
+        applyFilters();
+      });
+    });
+
+    let currentX = 1;
+    let currentY = 1;
+    const occupiedCells = new Set();
+
+    allPeriodicElements.forEach((el) => {
+      const x = el.style.gridColumnStart;
+      const y = el.style.gridRowStart;
+      if (x && y && x !== "auto" && y !== "auto") {
+        occupiedCells.add(`${x}-${y}`);
+      }
+    });
+
+    let maxPositionedY = 0;
+    allPeriodicElements.forEach((el) => {
+      const yPos = parseInt(el.style.gridRowStart, 10);
+      if (!isNaN(yPos) && yPos > maxPositionedY) {
+        maxPositionedY = yPos;
+      }
+    });
+    currentY = maxPositionedY > 0 ? maxPositionedY + 1 : 19;
+
+    allPeriodicElements.forEach((el) => {
+      const hasPosition =
+        el.style.gridColumnStart &&
+        el.style.gridRowStart &&
+        el.style.gridColumnStart !== "auto" &&
+        el.style.gridRowStart !== "auto";
+      if (!hasPosition) {
+        let placed = false;
+        let iterations = 0;
+        while (!placed && iterations < 1000) {
+          iterations++;
+          let cellKey = `${currentX}-${currentY}`;
+          if (!occupiedCells.has(cellKey)) {
+            el.style.gridColumn = currentX.toString();
+            el.style.gridRow = currentY.toString();
+            occupiedCells.add(cellKey);
+            placed = true;
+          }
+          currentX++;
+          if (currentX > 18) {
+            currentX = 1;
+            currentY++;
+          }
+          if (currentY > 50) {
+            console.warn(
+              "Could not place element via auto-positioning, fallback grid full or too many iterations."
+            );
+            break;
+          }
+        }
+      }
+    });
+  });
+</script>
+{% endblock %}

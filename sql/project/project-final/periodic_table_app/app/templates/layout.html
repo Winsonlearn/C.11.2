@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <title>{{ title }} - Periodic Table</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+    <!-- Add any other CSS libraries or custom styles here -->
+  </head>
+  <body>
+    <nav>
+      <!-- Basic navigation bar -->
+      <a href="{{ url_for('main.index') }}">Home</a>
+      <a href="{{ url_for('main.element_list') }}">Manage Elements</a>
+      <a href="{{ url_for('main.compare_elements') }}">Compare Elements</a>
+      <!-- Add other navigation links if needed -->
+    </nav>
+    <hr />
+    <div class="container">{% block content %}{% endblock %}</div>
+
+    <footer>
+      <!-- Footer content -->
+      <p>
+        &copy; 2024 Interactive Periodic Table. Project by Winson, Grade 11 IPA
+        1, Ignatius Global School.
+      </p>
+    </footer>
+
+    <!-- Add any JavaScript files here -->
+    <!-- <script src="{{ url_for('static', filename='js/main.js') }}"></script> -->
+  </body>
+</html>

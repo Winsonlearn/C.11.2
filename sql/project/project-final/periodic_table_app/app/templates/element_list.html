@@ -1,0 +1,203 @@
+{% extends "layout.html" %} {% block content %}
+<div class="container">
+  <h1>{{ title }}</h1>
+  <div
+    style="
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    "
+  >
+    <input
+      type="text"
+      id="element-list-filter"
+      placeholder="Filter elements..."
+      class="form-control"
+      style="width: 50%; max-width: 400px"
+    />
+    <a href="{{ url_for('main.create_element') }}" class="btn btn-success"
+      >Add New Element</a
+    >
+  </div>
+
+  {% if elements %}
+  <table
+    class="table table-striped table-hover"
+    id="elements-table"
+    style="margin-top: 10px"
+  >
+    <thead>
+      <tr>
+        <th data-column="atomic_number" style="cursor: pointer">
+          # <span class="sort-indicator"></span>
+        </th>
+        <th data-column="symbol" style="cursor: pointer">
+          Symbol <span class="sort-indicator"></span>
+        </th>
+        <th data-column="name" style="cursor: pointer">
+          Name <span class="sort-indicator"></span>
+        </th>
+        <th data-column="element_type" style="cursor: pointer">
+          Type <span class="sort-indicator"></span>
+        </th>
+        <th data-column="phase" style="cursor: pointer">
+          Phase <span class="sort-indicator"></span>
+        </th>
+        <th data-column="group" style="cursor: pointer">
+          Group <span class="sort-indicator"></span>
+        </th>
+        <th data-column="period" style="cursor: pointer">
+          Period <span class="sort-indicator"></span>
+        </th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody id="elements-table-body">
+      {% for element in elements %}
+      <tr>
+        <td>{{ element.atomic_number }}</td>
+        <td>{{ element.symbol }}</td>
+        <td>
+          <a
+            href="{{ url_for('main.view_element', atomic_number=element.atomic_number) }}"
+            >{{ element.name }}</a
+          >
+        </td>
+        <td>{{ element.element_type or 'N/A' }}</td>
+        <td>{{ element.phase or 'N/A' }}</td>
+        <td>{{ element.group or 'N/A' }}</td>
+        <td>{{ element.period or 'N/A' }}</td>
+        <td>
+          <a
+            href="{{ url_for('main.view_element', atomic_number=element.atomic_number) }}"
+            class="btn btn-info btn-sm"
+            >View</a
+          >
+          <a
+            href="{{ url_for('main.edit_element', atomic_number=element.atomic_number) }}"
+            class="btn btn-primary btn-sm"
+            >Edit</a
+          >
+          <form
+            method="POST"
+            action="{{ url_for('main.delete_element', atomic_number=element.atomic_number) }}"
+            style="display: inline"
+            onsubmit="return confirm('Are you sure you want to delete {{ element.name }}?');"
+          >
+            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p>
+    No elements found. You can
+    <a href="{{ url_for('main.create_element') }}">add one</a>.
+  </p>
+  {% endif %}
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const filterInput = document.getElementById("element-list-filter");
+    const tableBody = document.getElementById("elements-table-body");
+    const tableRows = tableBody.getElementsByTagName("tr");
+    const tableHeaders = document.querySelectorAll(
+      "#elements-table th[data-column]"
+    );
+    let currentSortColumn = null;
+    let isAscending = true;
+
+    if (filterInput) {
+      filterInput.addEventListener("keyup", function () {
+        const filterText = filterInput.value.toLowerCase();
+        for (let i = 0; i < tableRows.length; i++) {
+          const row = tableRows[i];
+          const cells = row.getElementsByTagName("td");
+          let match = false;
+          // Check atomic_number (index 0), symbol (index 1), name (index 2), type (index 3)
+          if (
+            cells[0].textContent.toLowerCase().includes(filterText) ||
+            cells[1].textContent.toLowerCase().includes(filterText) ||
+            cells[2].textContent.toLowerCase().includes(filterText) ||
+            cells[3].textContent.toLowerCase().includes(filterText)
+          ) {
+            match = true;
+          }
+          row.style.display = match ? "" : "none";
+        }
+      });
+    }
+
+    tableHeaders.forEach((header) => {
+      header.addEventListener("click", function () {
+        const column = this.dataset.column;
+        const columnIndex = Array.from(this.parentNode.children).indexOf(this);
+
+        // Update sort direction
+        if (currentSortColumn === column) {
+          isAscending = !isAscending;
+        } else {
+          isAscending = true;
+          currentSortColumn = column;
+        }
+
+        // Update sort indicators
+        tableHeaders.forEach(
+          (th) => (th.querySelector(".sort-indicator").textContent = "")
+        );
+        this.querySelector(".sort-indicator").textContent = isAscending
+          ? " ▲"
+          : " ▼";
+
+        sortTable(columnIndex, column);
+      });
+    });
+
+    function sortTable(columnIndex, columnType) {
+      const rowsArray = Array.from(tableRows);
+      rowsArray.sort((rowA, rowB) => {
+        let valA = rowA.cells[columnIndex].textContent.trim();
+        let valB = rowB.cells[columnIndex].textContent.trim();
+
+        if (
+          columnType === "atomic_number" ||
+          columnType === "group" ||
+          columnType === "period"
+        ) {
+          valA =
+            parseFloat(valA) ||
+            (valA.toLowerCase() === "n/a"
+              ? isAscending
+                ? Infinity
+                : -Infinity
+              : valA);
+          valB =
+            parseFloat(valB) ||
+            (valB.toLowerCase() === "n/a"
+              ? isAscending
+                ? Infinity
+                : -Infinity
+              : valB);
+        } else {
+          valA = valA.toLowerCase();
+          valB = valB.toLowerCase();
+          if (valA === "n/a") valA = isAscending ? "\uffff" : ""; // Push N/A to bottom/top
+          if (valB === "n/a") valB = isAscending ? "\uffff" : "";
+        }
+
+        if (valA < valB) return isAscending ? -1 : 1;
+        if (valA > valB) return isAscending ? 1 : -1;
+        return 0;
+      });
+
+      // Re-append sorted rows
+      rowsArray.forEach((row) => tableBody.appendChild(row));
+    }
+  });
+</script>
+
+{% endblock %}

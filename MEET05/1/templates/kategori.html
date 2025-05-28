@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Kategori</title>
+</head>
+<body>
+    <h2>INPUT KATEGORI</h2>
+    <form action="/kategori" method="post">
+        <input name="name" required type="text" placeholder="Nama Kategori">
+        <button type="submit">Simpan</button>
+    </form>
+
+    <h2>DATA KATEGORI</h2>
+    <ul>
+        {% for kat in kategori_list %}
+            <li>
+                {{ kat.name }}
+                <a href="/kategori/hapus/{{ kat.id }}" onclick="return confirm('Hapus kategori?')">Hapus</a> -
+                <a href="/kategori/update/{{ kat.id }}">Update</a>
+            </li>
+        {% endfor %}
+    </ul>
+    <br>
+    <a href="/">← Kembali ke Produk</a>
+</body>
+</html>

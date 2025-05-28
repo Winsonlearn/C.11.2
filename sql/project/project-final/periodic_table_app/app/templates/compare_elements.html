@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container">
+    <h2>{{ title }}</h2>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="flashes">
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <form method="POST" action="{{ url_for('main.compare_elements') }}" class="mb-4">
+        <div class="form-group">
+            <label for="elements_to_compare">Select Elements to Compare (up to 3):</label>
+            <select multiple class="form-control" id="elements_to_compare" name="elements_to_compare" size="10">
+                {% for value, display_text in element_choices %}
+                    <option value="{{ value }}" {% if value|string in request.form.getlist('elements_to_compare') %}selected{% endif %}>{{ display_text }}</option>
+                {% endfor %}
+            </select>
+            <small class="form-text text-muted">Hold down Ctrl (Windows/Linux) or Command (Mac) to select multiple elements.</small>
+        </div>
+        <button type="submit" class="btn btn-primary">Compare Selected</button>
+    </form>
+
+    {% if selected_elements_data %}
+        <h3>Comparison Results</h3>
+        <div class="comparison-grid">
+            {% for el in selected_elements_data %}
+                <div class="comparison-card data-section">
+                    <h4>{{ el.name }} ({{ el.symbol }})</h4>
+                    <p><strong>Atomic Number:</strong> {{ el.atomic_number }}</p>
+                    <p><strong>Atomic Mass:</strong> {{ el.atomic_mass }} u</p>
+                    <p><strong>Phase:</strong> {{ el.phase if el.phase else 'N/A' }}</p>
+                    <p><strong>Type:</strong> {{ el.element_type if el.element_type else 'N/A' }}</p>
+                    <p><strong>Density:</strong> {{ "%.3f g/cm³"|format(el.density) if el.density else 'N/A' }}</p>
+                    <p><strong>Melting Point:</strong> {{ "%.2f K"|format(el.melt) if el.melt else 'N/A' }}</p>
+                    <p><strong>Boiling Point:</strong> {{ "%.2f K"|format(el.boil) if el.boil else 'N/A' }}</p>
+                    <p><strong>Electronegativity:</strong> {{ el.electronegativity_pauling if el.electronegativity_pauling else 'N/A' }}</p>
+                    <p><strong>Electron Affinity:</strong> {{ "%.3f kJ/mol"|format(el.electron_affinity) if el.electron_affinity else 'N/A' }}</p>
+                    <p><strong>Group:</strong> {{ el.group if el.group else 'N/A' }}</p>
+                    <p><strong>Period:</strong> {{ el.period if el.period else 'N/A' }}</p>
+                    <a href="{{ url_for('main.view_element', atomic_number=el.atomic_number) }}" class="btn btn-sm btn-info mt-2">View Full Details</a>
+                </div>
+            {% endfor %}
+        </div>
+    {% elif request.method == 'POST' and not selected_elements_data %}
+        <p class="text-muted">No elements were selected or found for comparison.</p>
+    {% endif %}
+
+</div>
+{% endblock %} 

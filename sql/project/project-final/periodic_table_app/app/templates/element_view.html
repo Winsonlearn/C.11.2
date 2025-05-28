@@ -1,0 +1,201 @@
+{% extends "layout.html" %} {% from "macros.html" import format_json_array %} {%
+block content %}
+<div class="element-view-container container">
+  <div class="element-view-header">
+    <h1>{{ element.name }} ({{ element.symbol }})</h1>
+    <p class="lead">Atomic Number: {{ element.atomic_number }}</p>
+    <div class="action-buttons">
+      <a
+        href="{{ url_for('main.edit_element', atomic_number=element.atomic_number) }}"
+        class="btn btn-primary btn-sm"
+        >Edit Element</a
+      >
+      <form
+        action="{{ url_for('main.delete_element', atomic_number=element.atomic_number) }}"
+        method="POST"
+        style="display: inline"
+        onsubmit="return confirm('Are you sure you want to delete this element?');"
+      >
+        <button type="submit" class="btn btn-danger btn-sm">
+          Delete Element
+        </button>
+      </form>
+      <a href="{{ url_for('main.index') }}" class="btn btn-secondary btn-sm"
+        >Back to Table</a
+      >
+    </div>
+  </div>
+
+  <div class="data-section">
+    <h4>Key Properties</h4>
+    <div class="element-detail-grid">
+      <div class="detail-item">
+        <strong>Atomic Mass:</strong> {{ element.atomic_mass }} u
+      </div>
+      <div class="detail-item">
+        <strong>Group:</strong> {{ element.group if element.group else 'N/A' }}
+      </div>
+      <div class="detail-item">
+        <strong>Period:</strong> {{ element.period if element.period else 'N/A'
+        }}
+      </div>
+      <div class="detail-item">
+        <strong>Type:</strong> {{ element.element_type if element.element_type
+        else 'N/A' }}
+      </div>
+      <div class="detail-item">
+        <strong>Phase:</strong> {{ element.phase if element.phase else 'N/A' }}
+      </div>
+      <div class="detail-item">
+        <strong>Density:</strong> {{ "%.3f g/cm³"|format(element.density) if
+        element.density else 'N/A' }}
+      </div>
+      <div class="detail-item">
+        <strong>Melting Point:</strong> {{ "%.2f K"|format(element.melt) if
+        element.melt else 'N/A' }}
+      </div>
+      <div class="detail-item">
+        <strong>Boiling Point:</strong> {{ "%.2f K"|format(element.boil) if
+        element.boil else 'N/A' }}
+      </div>
+      <div class="detail-item">
+        <strong>Molar Heat:</strong> {{ "%.3f
+        J/(mol·K)"|format(element.molar_heat) if element.molar_heat else 'N/A'
+        }}
+      </div>
+      <div class="detail-item">
+        <strong>Electron Affinity:</strong> {{ "%.3f
+        kJ/mol"|format(element.electron_affinity) if element.electron_affinity
+        else 'N/A' }}
+      </div>
+      <div class="detail-item">
+        <strong>Electronegativity (Pauling):</strong> {{
+        element.electronegativity_pauling if element.electronegativity_pauling
+        else 'N/A' }}
+      </div>
+      <div class="detail-item">
+        <strong>CPK Hex Color:</strong>
+        {% if element.cpk_hex %}
+        <span
+          style="display: inline-block; width: 20px; height: 20px; background-color: #{{element.cpk_hex}}; border: 1px solid #ccc; vertical-align: middle; margin-right: 5px;"
+        ></span>
+        #{{ element.cpk_hex }} {% else %} N/A {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <div class="data-section">
+    <h4>Discovery & Naming</h4>
+    <div class="element-detail-grid">
+      <div class="detail-item wide">
+        <strong>Discovered By:</strong> {{ element.discovered_by if
+        element.discovered_by else 'N/A' }}
+      </div>
+      <div class="detail-item wide">
+        <strong>Named By:</strong> {{ element.named_by if element.named_by else
+        'N/A' }}
+      </div>
+      <div class="detail-item wide">
+        <strong>Source:</strong>
+        <a href="{{ element.source }}" target="_blank" rel="noopener noreferrer"
+          >{{ element.source if element.source else 'N/A' }}</a
+        >
+      </div>
+    </div>
+  </div>
+
+  {% if element.description %}
+  <div class="data-section">
+    <h4>Summary</h4>
+    <p>{{ element.description }}</p>
+  </div>
+  {% endif %} {% if element.appearance %}
+  <div class="data-section">
+    <h4>Appearance</h4>
+    <p>{{ element.appearance }}</p>
+  </div>
+  {% endif %}
+
+  <div class="data-section">
+    <h4>Electronic Properties</h4>
+    <div class="element-detail-grid">
+      <div class="detail-item wide">
+        <strong>Electron Configuration:</strong> {{
+        element.electron_configuration if element.electron_configuration else
+        'N/A' }}
+      </div>
+      <div class="detail-item wide">
+        <strong>Semantic Configuration:</strong> {{
+        element.electron_configuration_semantic if
+        element.electron_configuration_semantic else 'N/A' }}
+      </div>
+      <div class="detail-item">
+        <strong>Block:</strong> {{ element.block if element.block else 'N/A' }}
+      </div>
+    </div>
+
+    {% if shells_data %}
+    <h5>Electron Shells:</h5>
+    <ul class="list-styled">
+      {% for shell_count in shells_data %}
+      <li>Shell {{ loop.index }}: {{ shell_count }} electrons</li>
+      {% endfor %}
+    </ul>
+    {% endif %} {% if ionization_energies_data %}
+    <h5>Ionization Energies (kJ/mol):</h5>
+    <ul class="list-styled">
+      {% for energy in ionization_energies_data %}
+      <li>{{ "%.3f"|format(energy) if energy is number else energy }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+  </div>
+
+  {% if element.image_url or element.bohr_model_image or element.spectral_img %}
+  <div class="data-section">
+    <h4>Images & Models</h4>
+    <div class="element-images">
+      {% if element.image_url %}
+      <div class="element-image-item">
+        <p>
+          {{ element.image_title if element.image_title else 'Element Image' }}
+        </p>
+        <img src="{{ element.image_url }}" alt="{{ element.name }} Image" />
+        {% if element.image_attribution %}<small
+          ><em>{{ element.image_attribution }}</em></small
+        >{% endif %}
+      </div>
+      {% endif %} {% if element.bohr_model_image %}
+      <div class="element-image-item">
+        <p>Bohr Model</p>
+        <img
+          src="{{ element.bohr_model_image }}"
+          alt="Bohr Model of {{ element.name }}"
+        />
+      </div>
+      {% endif %} {% if element.spectral_img %}
+      <div class="element-image-item">
+        <p>Spectral Image</p>
+        <img
+          src="{{ element.spectral_img }}"
+          alt="Spectral Image of {{ element.name }}"
+        />
+      </div>
+      {% endif %} {# Add 3D model link/embed if available #} {% if
+      element.bohr_model_3d %}
+      <div class="element-image-item">
+        <p>3D Bohr Model</p>
+        <a
+          href="{{ element.bohr_model_3d }}"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn btn-info btn-sm"
+          >View 3D Model</a
+        >
+      </div>
+      {% endif %}
+    </div>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

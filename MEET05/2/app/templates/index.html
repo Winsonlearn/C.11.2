@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Produk</title>
+</head>
+<body>
+    <h1>INPUT PRODUK</h1>
+    <form action="/" method="post">
+        <label>Nama Produk:</label>
+        <input name="name" required type="text"><br>
+        <label>Harga:</label>
+        <input name="price" required type="number" step="0.01"><br>
+        <label>Kategori:</label>
+        <select name="category_id" required>
+            {% for cat in categories %}
+                <option value="{{ cat.id }}">{{ cat.name }}</option>
+            {% endfor %}
+        </select><br>
+        <button type="submit">Simpan</button>
+    </form>
+
+    <h2>DATA PRODUK</h2>
+    <ul>
+        {% for p in product_list %}
+            <li>
+                {{ p.name }} - Rp{{ p.price }} ({{ p.category.name }})
+                <a href="/hapus/{{ p.id }}" onclick="return confirm('Hapus produk?')">Hapus</a> -
+                <a href="/update/{{ p.id }}">Update</a>
+            </li>
+        {% endfor %}
+    </ul>
+    <br>
+    <a href="/kategori">Kelola Kategori</a>
+</body>
+</html>

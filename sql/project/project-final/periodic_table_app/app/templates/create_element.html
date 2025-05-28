@@ -1,0 +1,222 @@
+{% extends "layout.html" %} {% block content %}
+<div class="container">
+  <h2>{{ title }}</h2>
+
+  {# Display flashed messages #} {% with messages =
+  get_flashed_messages(with_categories=true) %} {% if messages %}
+  <div class="flashes">
+    {% for category, message in messages %}
+    <div class="alert alert-{{ category }}">{{ message }}</div>
+    {% endfor %}
+  </div>
+  {% endif %} {% endwith %}
+
+  <form method="POST" action="{{ url_for('main.create_element') }}">
+    {{ form.hidden_tag() }} {# Important for CSRF protection #}
+
+    <div class="form-group">
+      {{ form.atomic_number.label }}<br />
+      {{ form.atomic_number(class="form-control") }} {% if
+      form.atomic_number.errors %}
+      <ul class="errors">
+        {% for error in form.atomic_number.errors %}
+        <li>{{ error }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+    </div>
+
+    <div class="form-group">
+      {{ form.symbol.label }}<br />
+      {{ form.symbol(class="form-control") }} {% if form.symbol.errors %}
+      <ul class="errors">
+        {% for error in form.symbol.errors %}
+        <li>{{ error }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+    </div>
+
+    <div class="form-group">
+      {{ form.name.label }}<br />
+      {{ form.name(class="form-control") }} {% if form.name.errors %}
+      <ul class="errors">
+        {% for error in form.name.errors %}
+        <li>{{ error }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+    </div>
+
+    <div class="form-group">
+      {{ form.atomic_mass.label }}<br />
+      {{ form.atomic_mass(class="form-control") }} {% if form.atomic_mass.errors
+      %}
+      <ul class="errors">
+        {% for error in form.atomic_mass.errors %}
+        <li>{{ error }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+    </div>
+
+    <div class="form-group">
+      {{ form.group.label }}<br />
+      {{ form.group(class="form-control") }} {% if form.group.errors %}
+      <ul class="errors">
+        {% for error in form.group.errors %}
+        <li>{{ error }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+    </div>
+
+    <div class="form-group">
+      {{ form.period.label }}<br />
+      {{ form.period(class="form-control") }} {% if form.period.errors %}
+      <ul class="errors">
+        {% for error in form.period.errors %}
+        <li>{{ error }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+    </div>
+
+    <div class="form-group">
+      {{ form.element_type.label }}<br />
+      {{ form.element_type(class="form-control") }} {% if
+      form.element_type.errors %}
+      <ul class="errors">
+        {% for error in form.element_type.errors %}
+        <li>{{ error }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+    </div>
+
+    <div class="form-group">
+      {{ form.description.label }}<br />
+      {{ form.description(class="form-control") }} {% if form.description.errors
+      %}
+      <ul class="errors">
+        {% for error in form.description.errors %}
+        <li>{{ error }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+    </div>
+
+    <div class="form-group">
+      {{ form.phase.label }}<br />
+      {{ form.phase(class="form-control") }} {% if form.phase.errors %}
+      <ul class="errors">
+        {% for error in form.phase.errors %}
+        <li>{{ error }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+    </div>
+
+    {# Add new fields here #}
+    <div class="form-group">
+      {{ form.appearance.label }}<br />
+      {{ form.appearance(class="form-control") }} {% if form.appearance.errors
+      %}
+      <ul class="errors">
+        {% for error in form.appearance.errors %}
+        <li>{{ error }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+    </div>
+
+    <div class="form-group">
+      {{ form.density.label }}<br />
+      {{ form.density(class="form-control") }} {% if form.density.errors %}
+      <ul class="errors">
+        {% for error in form.density.errors %}
+        <li>{{ error }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+    </div>
+
+    <div class="form-group">
+      {{ form.melt.label }}<br />
+      {{ form.melt(class="form-control") }} {% if form.melt.errors %}
+      <ul class="errors">
+        {% for error in form.melt.errors %}
+        <li>{{ error }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+    </div>
+
+    <div class="form-group">
+      {{ form.boil.label }}<br />
+      {{ form.boil(class="form-control") }} {% if form.boil.errors %}
+      <ul class="errors">
+        {% for error in form.boil.errors %}
+        <li>{{ error }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+    </div>
+
+    <div class="form-group">
+      {{ form.discovered_by.label }}<br />
+      {{ form.discovered_by(class="form-control") }} {% if
+      form.discovered_by.errors %}
+      <ul class="errors">
+        {% for error in form.discovered_by.errors %}
+        <li>{{ error }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+    </div>
+
+    <div class="form-group">
+      {{ form.molar_heat.label }}<br />
+      {{ form.molar_heat(class="form-control") }} {% if form.molar_heat.errors
+      %}
+      <ul class="errors">
+        {% for error in form.molar_heat.errors %}
+        <li>{{ error }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+    </div>
+
+    <div class="form-group">
+      {{ form.named_by.label }}<br />
+      {{ form.named_by(class="form-control") }} {% if form.named_by.errors %}
+      <ul class="errors">
+        {% for error in form.named_by.errors %}
+        <li>{{ error }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+    </div>
+
+    <div class="form-group">
+      {{ form.source.label }}<br />
+      {{ form.source(class="form-control") }} {% if form.source.errors %}
+      <ul class="errors">
+        {% for error in form.source.errors %}
+        <li>{{ error }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+    </div>
+
+    <div class="form-group">
+      {{ form.submit(class="btn btn-primary") }} {# Use form.submit directly #}
+    </div>
+  </form>
+  <p>
+    <a href="{{ url_for('main.index') }}" class="btn btn-secondary"
+      >Back to Table</a
+    >
+  </p>
+</div>
+{% endblock %}
