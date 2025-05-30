@@ -196,15 +196,8 @@ Berikut adalah beberapa tangkapan layar dari aplikasi:
 *Tampilan utama tabel periodik dengan unsur-unsur, pencarian, dan filter.*
 
 ![Tampilan Detail Unsur](image/Screenshot%202025-05-30%20at%2023.20.09.png)
-*Halaman khusus yang menampilkan informasi rinci untuk sebuah unsur.*
+*Halaman khusus yang menampilkan informasi rinci untuk sebuah unsur dan proses CRUD.*
 
 ![Halaman Kelola Unsur](image/Screenshot%202025-05-30%20at%2023.20.30.png)
-*Halaman Kelola Unsur dengan tabel yang dapat diurutkan dan difilter.*
+*Halaman Kelola perbandingan Unsur dengan tabel yang dapat diurutkan dan difilter.*
 
-## Kontribusi
-
-Jika Anda ingin berkontribusi pada pengembangan proyek ini, silakan merujuk pada panduan kontribusi (jika ada) atau buat *issue* untuk diskusi lebih lanjut.
-
-## Lisensi
-
-Proyek ini dilisensikan di bawah Lisensi MIT. Lihat file `LICENSE.md` untuk detailnya. 
