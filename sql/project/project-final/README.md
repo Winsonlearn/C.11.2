@@ -1,51 +1,49 @@
-# Interactive Periodic Table Web Application
+# Aplikasi Web Tabel Periodik Interaktif
 
-An interactive web application built with Flask that allows users to explore the periodic table of elements, view detailed information, manage element data (Create, Read, Update, Delete), and compare elements.
+Sebuah aplikasi web interaktif yang dibangun menggunakan Flask. Aplikasi ini memungkinkan pengguna untuk menjelajahi tabel periodik unsur, melihat informasi detail, mengelola data unsur (Tambah, Baca, Perbarui, Hapus), dan membandingkan unsur-unsur.
 
-## Features
+## Fitur Utama
 
-*   **Interactive Periodic Table Grid:** Displays elements on the homepage, color-coded by type.
-*   **Element Details Modal:** Click an element on the grid to view its key details in a pop-up modal.
-*   **Dedicated Element View Page:** A separate page for each element (`/element/view/<atomic_number>`) showing comprehensive information, including images and specific properties like electron shells and ionization energies.
-*   **Search Functionality:** Real-time search by element name or symbol on the main periodic table page.
-*   **Filter by Element Type:** Buttons to filter elements on the main page based on their classification (e.g., alkali metal, noble gas).
-*   **CRUD Operations for Elements:**
-    *   **Create:** Add new elements to the database via a dedicated form (`/element/new`) with input validation.
-    *   **Read:** View element data through the main grid, detail modal, dedicated view page, and the "Manage Elements" page.
-    *   **Update:** Edit information for existing elements using a pre-filled form (`/element/edit/<atomic_number>`).
-    *   **Delete:** Remove elements from the database with a confirmation prompt, accessible from the element detail modal.
-*   **Manage Elements Page:** A tabular view (`/elements`) of all elements, featuring:
-    *   Client-side searching/filtering within the table.
-    *   Sortable columns.
-    *   Direct links to view, edit, or delete each element.
-*   **Compare Elements Page:** A tool (`/compare`) to select up to three elements and view their properties side-by-side for easy comparison.
-*   **Tooltips:** Hovering over an element in the main grid displays a tooltip with its atomic number, symbol, and name.
-*   **Group/Period Highlighting:** Clicking an element on the main grid highlights other elements belonging to the same group and period.
-*   **Data Population:** Element data is initially loaded from `PeriodicTableJSON.json` using a Python script (`populate_db.py`).
-*   **Responsive Design:** User interface elements are designed to be functional across different screen sizes.
+*   **Tampilan Tabel Periodik Interaktif:** Menampilkan unsur-unsur di halaman utama, dengan kode warna berdasarkan jenisnya. Setiap unsur yang diklik akan mengarahkan ke halaman detail unsur tersebut.
+*   **Halaman Detail Unsur:** Halaman khusus untuk setiap unsur (`/element/view/<nomor_atom>`) yang menampilkan informasi komprehensif, termasuk gambar (jika tersedia) dan properti spesifik seperti kulit elektron dan energi ionisasi.
+*   **Fungsi Pencarian:** Pencarian *real-time* berdasarkan nama atau simbol unsur di halaman utama tabel periodik.
+*   **Filter Berdasarkan Jenis Unsur:** Tombol untuk memfilter unsur di halaman utama berdasarkan klasifikasinya (misalnya, logam alkali, gas mulia).
+*   **Operasi CRUD Unsur:**
+    *   **Tambah (Create):** Menambahkan unsur baru ke database melalui formulir khusus (`/element/new`) dengan validasi input.
+    *   **Baca (Read):** Melihat data unsur melalui tabel utama, halaman detail, dan halaman "Kelola Unsur".
+    *   **Perbarui (Update):** Mengedit informasi unsur yang sudah ada menggunakan formulir yang sudah terisi (`/element/edit/<nomor_atom>`).
+    *   **Hapus (Delete):** Menghapus unsur dari database dengan konfirmasi, dapat diakses dari halaman detail unsur atau halaman kelola.
+*   **Halaman Kelola Unsur:** Tampilan tabel (`/elements`) dari semua unsur, yang dilengkapi dengan:
+    *   Pencarian/pemfilteran di sisi klien dalam tabel.
+    *   Kolom yang dapat diurutkan.
+    *   Tautan langsung untuk melihat, mengedit, atau menghapus setiap unsur.
+*   **Halaman Bandingkan Unsur:** Alat (`/compare`) untuk memilih hingga tiga unsur dan melihat perbandingan propertinya secara berdampingan.
+*   **Tooltip:** Mengarahkan kursor ke sebuah unsur di tabel utama akan menampilkan tooltip berisi nomor atom, simbol, dan nama unsur tersebut.
+*   **Populasi Data:** Data unsur dimuat dari `PeriodicTableJSON.json` menggunakan skrip Python (`populate_db.py`).
+*   **Desain Responsif:** Antarmuka pengguna dirancang agar fungsional di berbagai ukuran layar.
 
-## Technologies Used
+## Teknologi yang Digunakan
 
 *   **Backend:** Python, Flask, Flask-SQLAlchemy, Flask-WTF, Flask-Migrate
 *   **Database:** SQLite
 *   **Frontend:** HTML, CSS, JavaScript
-*   **Data Source:** `PeriodicTableJSON.json` for initial element data.
+*   **Sumber Data:** `PeriodicTableJSON.json` untuk data awal unsur.
 
-## Project Structure
+## Struktur Proyek
 
-The project generally follows an MVC (Model-View-Controller) pattern.
+Proyek ini secara umum mengikuti pola MVC (Model-View-Controller).
 
 ```
 project-final/
-├── periodic_table_app/         # Main application directory
-│   ├── app/                    # Core application package
-│   │   ├── __init__.py         # Initializes Flask app, extensions
-│   │   ├── models.py           # Database models (Element)
-│   │   ├── routes.py           # Controller logic, API endpoints
-│   │   ├── forms.py            # WTForms definitions
-│   │   ├── static/             # CSS, JavaScript, images
+├── periodic_table_app/         # Direktori aplikasi utama
+│   ├── app/                    # Paket inti aplikasi
+│   │   ├── __init__.py         # Inisialisasi aplikasi Flask, ekstensi
+│   │   ├── models.py           # Model database (Unsur)
+│   │   ├── routes.py           # Logika controller, endpoint API
+│   │   ├── forms.py            # Definisi WTForms
+│   │   ├── static/             # CSS, JavaScript, gambar
 │   │   │   └── css/style.css
-│   │   └── templates/          # HTML templates
+│   │   └── templates/          # Template HTML
 │   │       ├── layout.html
 │   │       ├── index.html
 │   │       ├── element_view.html
@@ -54,167 +52,159 @@ project-final/
 │   │       ├── element_list.html
 │   │       ├── compare_elements.html
 │   │       └── macros.html
-│   ├── migrations/             # Flask-Migrate database migration scripts
-│   ├── run.py                  # Entry point to run the Flask application
-│   ├── config.py               # Application configuration (DB URI, Secret Key)
-│   ├── populate_db.py          # Script to populate the database
-│   └── PeriodicTableJSON.json  # Raw element data
-├── requirements.txt            # Python dependencies
-├── .gitignore                  # Files to be ignored by Git
-└── README.md                   # This file
+│   ├── migrations/             # Skrip migrasi database Flask-Migrate
+│   ├── image/                  # Direktori untuk gambar screenshot aplikasi (BARU DIPINDAHKAN KE SINI)
+│   │   ├── Screenshot 2025-05-30 at 23.19.54.png
+│   │   ├── Screenshot 2025-05-30 at 23.20.09.png
+│   │   └── Screenshot 2025-05-30 at 23.20.30.png
+│   ├── run.py                  # Titik masuk untuk menjalankan aplikasi Flask
+│   ├── config.py               # Konfigurasi aplikasi (URI DB, Kunci Rahasia)
+│   ├── populate_db.py          # Skrip untuk mengisi database
+│   └── PeriodicTableJSON.json  # Data mentah unsur
+├── requirements.txt            # Dependensi Python
+├── .gitignore                  # File yang akan diabaikan oleh Git
+└── README.md                   # File ini
 ```
-*(Note: The virtual environment `.venv` is expected to be located one level above `project-final/`, e.g., in `sql/project/.venv`)*
+*(Catatan: Lingkungan virtual `.venv` diharapkan berada satu tingkat di atas `project-final/`, contohnya di `sql/project/.venv`)*
 
-## Prerequisites
+## Prasyarat
 
-*   Python (3.8+ recommended)
-*   `pip` (Python package installer)
-*   `git` (for cloning the repository)
+*   Python (versi 3.8+ direkomendasikan)
+*   `pip` (pengelola paket Python)
+*   `git` (untuk kloning repositori)
 
-## Setup and Installation
+## Pengaturan dan Instalasi
 
-1.  **Clone the repository:**
+1.  **Kloning repositori:**
     ```bash
-    git clone <your-repository-url>
+    git clone <url-repositori-anda>
     cd project-final
     ```
 
-2.  **Set up and activate the virtual environment:**
-    This project expects the virtual environment (`.venv`) to be located in the parent directory of `project-final` (e.g., `sql/project/.venv`).
+2.  **Atur dan aktifkan lingkungan virtual:**
+    Proyek ini mengharapkan lingkungan virtual (`.venv`) berada di direktori induk dari `project-final` (misalnya `sql/project/.venv`).
 
-    *   If you are in the `project-final` directory:
+    *   Jika Anda berada di direktori `project-final`:
         ```bash
-        # Create the .venv in the parent directory if it doesn't exist
-        # python -m venv ../.venv # Uncomment and run if .venv is not present in parent
+        # Buat .venv di direktori induk jika belum ada
+        # python -m venv ../.venv # Hilangkan komentar dan jalankan jika .venv belum ada di induk
 
-        # Activate the virtual environment (from project-final directory)
-        source ../.venv/bin/activate  # On Linux/macOS
-        # ..\.venv\Scripts\activate  # On Windows
+        # Aktifkan lingkungan virtual (dari direktori project-final)
+        source ../.venv/bin/activate  # Pada Linux/macOS
+        # ..\\.venv\\Scripts\\activate  # Pada Windows
         ```
 
-3.  **Install dependencies:**
-    (Ensure your virtual environment is active and you are in the `project-final` directory)
+3.  **Instal dependensi:**
+    (Pastikan lingkungan virtual Anda aktif dan Anda berada di direktori `project-final`)
     ```bash
     pip install -r requirements.txt
     ```
 
-## Database Setup
+## Pengaturan Database
 
-All database commands should be run from the `periodic_table_app` directory, with the virtual environment active.
+Semua perintah database harus dijalankan dari direktori `periodic_table_app`, dengan lingkungan virtual aktif.
 
-1.  **Navigate to the application directory:**
+1.  **Navigasi ke direktori aplikasi:**
     ```bash
     cd periodic_table_app
     ```
 
-2.  **Initialize Flask-Migrate (if setting up for the first time):**
-    This step is only needed if the `migrations` folder does not already exist in `periodic_table_app/`.
+2.  **Inisialisasi Flask-Migrate (jika baru pertama kali mengatur):**
+    Langkah ini hanya diperlukan jika folder `migrations` belum ada di `periodic_table_app/`.
     ```bash
     flask db init
     ```
 
-3.  **Create database migrations:**
-    If you've just run `flask db init` or made changes to `models.py`:
+3.  **Buat migrasi database:**
+    Jika Anda baru saja menjalankan `flask db init` atau melakukan perubahan pada `models.py`:
     ```bash
-    flask db migrate -m "Initial database setup" 
+    flask db migrate -m "Pengaturan awal database"
     ```
-    *(Use a descriptive message for subsequent migrations.)*
+    *(Gunakan pesan yang deskriptif untuk migrasi berikutnya.)*
 
-4.  **Apply migrations to the database:**
-    This creates/updates the `app.db` SQLite file.
+4.  **Terapkan migrasi ke database:**
+    Ini akan membuat/memperbarui file SQLite `app.db`.
     ```bash
     flask db upgrade
     ```
 
-## Populating the Database
+## Mengisi Database
 
-The initial set of element data is loaded from `PeriodicTableJSON.json`.
+Set data unsur awal dimuat dari `PeriodicTableJSON.json`.
 
-1.  Ensure you are in the `project-final/periodic_table_app/` directory.
-2.  Ensure your virtual environment is active.
-3.  Run the population script:
+1.  Pastikan Anda berada di direktori `project-final/periodic_table_app/`.
+2.  Pastikan lingkungan virtual Anda aktif.
+3.  Jalankan skrip populasi:
     ```bash
     python populate_db.py
     ```
-    This will populate the `element` table in your `app.db` database.
+    Ini akan mengisi tabel `element` di database `app.db` Anda.
 
-## Running the Application
+## Menjalankan Aplikasi
 
-1.  Ensure you are in the `project-final/periodic_table_app/` directory.
-2.  Ensure your virtual environment (`../.venv` relative to `project-final`) is active.
+1.  Pastikan Anda berada di direktori `project-final/periodic_table_app/`.
+2.  Pastikan lingkungan virtual Anda (`../.venv` relatif terhadap `project-final`) aktif.
     ```bash
-    # If not already active and you are in periodic_table_app/
+    # Jika belum aktif dan Anda berada di periodic_table_app/
     # source ../../.venv/bin/activate # Linux/macOS
-    # ..\..\.venv\Scripts\activate # Windows
+    # ..\\..\\.venv\\Scripts\\activate # Windows
     ```
-3.  Start the Flask development server:
+3.  Mulai server pengembangan Flask:
     ```bash
     python run.py
     ```
-4.  Open your web browser and navigate to `http://127.0.0.1:5000/`.
+4.  Buka browser web Anda dan navigasikan ke `http://127.0.0.1:5000/`.
 
-## How to Use
+## Cara Menggunakan
 
-*   **Homepage (`/` or `/index`):**
-    *   **View Table:** The main periodic table is displayed. Elements are styled based on their type.
-    *   **Hover for Tooltip:** Hover over any element to see a quick view of its atomic number, symbol, and name.
-    *   **Click for Details:** Click an element to open a modal with more detailed information. This action also highlights other elements in the same group and period on the main grid.
-    *   **Search:** Use the search bar at the top to filter elements by name or symbol in real-time.
-    *   **Filter by Type:** Click the buttons below the search bar (e.g., "Alkali Metal", "Noble Gas") to filter the displayed elements by their type. Click "All Types" to reset.
-    *   **Navigation:** Use the top navigation bar to go to "Manage Elements", "Compare Elements", or "Add New Element".
+*   **Halaman Utama (`/` atau `/index`):**
+    *   **Lihat Tabel:** Tabel periodik utama ditampilkan. Unsur-unsur ditata berdasarkan jenisnya.
+    *   **Arahkan Kursor untuk Tooltip:** Arahkan kursor ke unsur mana pun untuk melihat tampilan cepat nomor atom, simbol, dan namanya.
+    *   **Klik untuk Detail:** Mengklik sebuah unsur akan mengarahkan Anda ke halaman detail lengkap unsur tersebut.
+    *   **Pencarian:** Gunakan bilah pencarian di bagian atas untuk memfilter unsur berdasarkan nama atau simbol secara *real-time*.
+    *   **Filter berdasarkan Jenis:** Klik tombol di bawah bilah pencarian (misalnya, "Logam Alkali", "Gas Mulia") untuk memfilter unsur yang ditampilkan berdasarkan jenisnya. Klik "Semua Jenis" untuk mereset.
+    *   **Navigasi:** Gunakan bilah navigasi atas untuk pergi ke "Kelola Unsur", "Bandingkan Unsur", atau "Tambah Unsur Baru".
 
-*   **Element Detail Modal (on Homepage):**
-    *   Provides a snapshot of the element's properties.
-    *   **"View Full Page" button:** Takes you to the dedicated page for that element with even more details.
-    *   **"Edit Element" button:** Opens the form to modify the element's data.
-    *   **"Delete Element" button:** Allows deletion of the element after a confirmation.
+*   **Halaman Detail Unsur (`/element/view/<nomor_atom>`):**
+    *   Diakses dengan mengklik unsur pada tabel utama atau dari halaman "Kelola Unsur".
+    *   Menampilkan semua informasi yang tersedia untuk satu unsur, termasuk gambar (jika ada), konfigurasi kulit elektron, dan energi ionisasi, disajikan dalam format terstruktur.
 
-*   **Dedicated Element View Page (`/element/view/<atomic_number>`):**
-    *   Accessed via the "View Full Page" button or from the "Manage Elements" page.
-    *   Displays all available information for a single element, including images (if available), electron shell configurations, and ionization energies, presented in a structured format.
+*   **Tambah Unsur Baru (`/element/new`):**
+    *   Dapat diakses melalui tombol "Tambah Unsur Baru" di navigasi/layout.
+    *   Menyediakan formulir untuk memasukkan semua detail relevan untuk unsur kimia baru. Bidang termasuk nomor atom, simbol, nama, fase, jenis, dan berbagai sifat fisik.
+    *   Termasuk validasi formulir untuk memastikan integritas data (misalnya, nomor atom dan simbol harus unik).
 
-*   **Add New Element (`/element/new`):**
-    *   Accessible via the "Add New Element" button in the navigation/layout.
-    *   Provides a form to input all relevant details for a new chemical element. Fields include atomic number, symbol, name, phase, type, and various physical properties.
-    *   Includes form validation to ensure data integrity (e.g., atomic number and symbol must be unique).
+*   **Edit Unsur (`/element/edit/<nomor_atom>`):**
+    *   Dapat diakses dari halaman detail unsur atau halaman "Kelola Unsur".
+    *   Formulir sudah diisi sebelumnya dengan data unsur yang dipilih saat ini, memungkinkan modifikasi.
 
-*   **Edit Element (`/element/edit/<atomic_number>`):**
-    *   Accessible from the element detail modal or the "Manage Elements" page.
-    *   The form is pre-populated with the selected element's current data, allowing for modifications.
+*   **Halaman Kelola Unsur (`/elements`):**
+    *   Mencantumkan semua unsur dari database dalam tabel yang dapat diurutkan dan difilter.
+    *   **Pencarian Tabel:** Gunakan bidang input untuk memfilter tabel berdasarkan nama atau simbol.
+    *   **Urutkan Kolom:** Klik pada header kolom (misalnya, "Nama", "Nomor Atom") untuk mengurutkan tabel.
+    *   **Tindakan:** Setiap baris menyediakan tautan/tombol untuk "Lihat" halaman unsur lengkap, "Edit" unsur, atau "Hapus" unsur.
 
-*   **Manage Elements Page (`/elements`):**
-    *   Lists all elements from the database in a sortable and filterable table.
-    *   **Search Table:** Use the input field to filter the table by name or symbol.
-    *   **Sort Columns:** Click on column headers (e.g., "Name", "Atomic Number") to sort the table.
-    *   **Actions:** Each row provides links/buttons to "View" the full element page, "Edit" the element, or "Delete" the element.
+*   **Halaman Bandingkan Unsur (`/compare`):**
+    *   Memungkinkan pemilihan hingga tiga unsur berbeda dari daftar dropdown.
+    *   Setelah mengirimkan pilihan, menampilkan perbandingan berdampingan dari properti unsur yang dipilih dalam format kisi, memudahkan untuk melihat perbedaan dan kesamaan.
 
-*   **Compare Elements Page (`/compare`):**
-    *   Allows selection of up to three different elements from dropdown lists.
-    *   After submitting the selection, displays a side-by-side comparison of the chosen elements' properties in a grid format, making it easy to see differences and similarities.
+## Tangkapan Layar
 
-## Screenshots
+Berikut adalah beberapa tangkapan layar dari aplikasi:
 
-*(To be added: Please include screenshots of key application views, such as:*
-*   *The main periodic table page with filters and search.*
-*   *The element details modal.*
-*   *The dedicated element view page.*
-*   *The form for adding/editing an element.*
-*   *The "Manage Elements" page with its table.*
-*   *The "Compare Elements" page showing a comparison.)*
+![Tampilan Utama Tabel Periodik](image/Screenshot%202025-05-30%20at%2023.19.54.png)
+*Tampilan utama tabel periodik dengan unsur-unsur, pencarian, dan filter.*
 
-![Main Periodic Table View](../../image/Screenshot%202025-05-30%20at%2023.19.54.png)
-*Main periodic table view with elements, search, and filters.*
+![Tampilan Detail Unsur](image/Screenshot%202025-05-30%20at%2023.20.09.png)
+*Halaman khusus yang menampilkan informasi rinci untuk sebuah unsur.*
 
-![Element Detail View](../../image/Screenshot%202025-05-30%20at%2023.20.09.png)
-*Dedicated page showing detailed information for an element.*
+![Halaman Kelola Unsur](image/Screenshot%202025-05-30%20at%2023.20.30.png)
+*Halaman Kelola Unsur dengan tabel yang dapat diurutkan dan difilter.*
 
-![Manage Elements Page](../../image/Screenshot%202025-05-30%20at%2023.20.30.png)
-*Manage elements page with a sortable and filterable table.*
+## Kontribusi
 
-## Contributing
+Jika Anda ingin berkontribusi pada pengembangan proyek ini, silakan merujuk pada panduan kontribusi (jika ada) atau buat *issue* untuk diskusi lebih lanjut.
 
-(Optional: If you wish to allow contributions, outline guidelines here, e.g., for reporting bugs or suggesting features.)
+## Lisensi
 
-## License
-
-(Optional: Specify a license for your project, e.g., MIT License.) 
+Proyek ini dilisensikan di bawah Lisensi MIT. Lihat file `LICENSE.md` untuk detailnya. 
