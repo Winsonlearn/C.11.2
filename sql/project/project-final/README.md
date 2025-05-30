@@ -202,6 +202,15 @@ The initial set of element data is loaded from `PeriodicTableJSON.json`.
 *   *The "Manage Elements" page with its table.*
 *   *The "Compare Elements" page showing a comparison.)*
 
+![Main Periodic Table View](../../image/Screenshot%202025-05-30%20at%2023.19.54.png)
+*Main periodic table view with elements, search, and filters.*
+
+![Element Detail View](../../image/Screenshot%202025-05-30%20at%2023.20.09.png)
+*Dedicated page showing detailed information for an element.*
+
+![Manage Elements Page](../../image/Screenshot%202025-05-30%20at%2023.20.30.png)
+*Manage elements page with a sortable and filterable table.*
+
 ## Contributing
 
 (Optional: If you wish to allow contributions, outline guidelines here, e.g., for reporting bugs or suggesting features.)
